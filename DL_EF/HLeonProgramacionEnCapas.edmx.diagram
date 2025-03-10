@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="28d287f0ecea44658813323ce04bbad4" Name="Diagram1" ZoomLevel="49">
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.rol" Width="1.5" PointX="1.375" PointY="6.125" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Colonia" Width="1.5" PointX="7.875" PointY="1.125" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Direccion" Width="1.5" PointX="10.125" PointY="1.625" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Estado" Width="1.5" PointX="3.375" PointY="1.375" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Municipio" Width="1.5" PointX="5.625" PointY="1.25" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Colonia__IdMunic__46E78A0C" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Direccion__IdCol__49C3F6B7" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Municipio__IdEst__440B1D61" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.usuario" Width="1.5" PointX="1" PointY="1.25" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Direccion__IdUsu__4AB81AF0" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK_UsuarioIdRol" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
