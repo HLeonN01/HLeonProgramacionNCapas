@@ -553,7 +553,7 @@ namespace BL
                                         usuario.Estatus, usuario.CURP,
                                         usuario.Imagen, usuario.Rol.IdRol, usuario.Direccion.Calle,
                                         usuario.Direccion.NumeroInterior, usuario.Direccion.NumeroExterior,
-                                        usuario.Direccion.Colonia.IdColonia);
+                                        usuario.Direccion.Colonia.IdColonia, usuario.IdUsuario);
                     if (rowsAffect > 0)
                     {
                         result.Correct = true;

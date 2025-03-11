@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -90,7 +92,7 @@ namespace PL_MVC.Controllers
         [HttpPost]
         public ActionResult Form(ML.Usuario usuario)
         {
-            HttpPostedFileBase file = Request.Files["Imagen"];
+            HttpPostedFileBase file = Request.Files["ImagenUsuario"];
             if (file != null)
             {
                 usuario.Imagen = ConvertirAArrayBytes(file);
