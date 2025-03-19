@@ -2,7 +2,7 @@
 @model ML.Usuario
 @{
     ViewBag.Title = "GetAll";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";    
 }
 <style>
     .table_component {
@@ -51,13 +51,13 @@
         max-height: 0;
         overflow: hidden;
         padding: 0;
-        border: 2px solid rgb(170, 50, 220, .6);        
-        transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, padding 0.5s ease-in-out;        
+        border: 2px solid rgb(170, 50, 220, .6);
+        transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, padding 0.5s ease-in-out;
     }
 
-    .visible{
+    .visible {
         opacity: 1;
-        max-height: 500px;
+        max-height: 800px;
         padding: 20px;
     }
 </style>
@@ -99,7 +99,7 @@
                 </div>
                 <div class="text-center">
                     <div class="col-12">
-                        <button class="btn btn-info" type="submit"> <i class="bi bi-search"></i></button>
+                        <button class="btn btn-outline-info" type="submit"> <i class="bi bi-search"></i></button>
                     </div>
                 </div>
             </div>
@@ -111,17 +111,50 @@
 <div class="text-lg-end">
     <div class="col-12">
         <button id="oculto" class="btn btn-outline-primary" onclick="Show()">
-            Busqueda
+            Busqueda abierta
         </button>
     </div>
 </div>
 <br />
 <div class="container">
     <div class="align-content-lg-end">
-        <a href="@Url.Action("Form", "Usuario")" class="btn btn-outline-success" type="submit">Agregar</a>
+        <a href="@Url.Action("Form", "Usuario")" class="btn btn-outline-info" type="submit">Agregar</a>
     </div>
 </div>
+<br />
+@using (Html.BeginForm("CargaMasivaExcel", "Usuario", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <div>
 
+        <h5>
+            <strong>
+                Carga masiva Excel
+            </strong>
+        </h5>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <input type="file" name="Excel" class="form-control" />
+            </div>
+            @if (Session["RutaExcel"] == null)
+            {
+                <div class="col-2">
+                    <button class="form-control btn btn-outline-success" type="submit">Subir Excel</button>
+                </div>
+            }
+            else
+            {
+                <div class="col-2">
+                    <button class="form-control btn btn-outline-success" type="submit">Insertar Excel</button>
+                </div>
+            }
+
+        </div>
+    </div>
+}
+
+<br />
 @if (Model.Usuarios.Count > 0)
 {
     <br />
@@ -246,10 +279,10 @@ else
         var x = document.getElementById("hide");
         if (x.classList.contains("visible")) {
             x.style.maxHeight = "0px";
-            x.classList.remove("visible");            
-        } else {            
+            x.classList.remove("visible");
+        } else {
             x.style.maxHeight = x.scrollHeight + "px";
             x.classList.add("visible");
         }
-    }      
+    }
 </script>

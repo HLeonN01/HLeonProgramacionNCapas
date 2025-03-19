@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +10,9 @@ namespace ML
 {
     public class Colonia
     {
+
+        [DisplayName("Colonia")]
+        [Required(ErrorMessage = "La colonia es obligatorio")]
         public int IdColonia { get; set; }
         public string Nombre { get; set; }
         public string CodigoPostal { get; set; }

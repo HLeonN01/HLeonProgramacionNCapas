@@ -199,6 +199,7 @@
           <Parameter Name="NumeroInterior" Type="varchar" Mode="In" />
           <Parameter Name="NumeroExterior" Type="varchar" Mode="In" />
           <Parameter Name="IdColonia" Type="int" Mode="In" />
+          <Parameter Name="LastId" Type="int" Mode="In" />
         </Function>
         <Function Name="UsuarioDireccionDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdUsuario" Type="int" Mode="In" />
@@ -406,26 +407,6 @@
             <End Role="rol" EntitySet="rols" />
             <End Role="usuario" EntitySet="usuarios" />
           </AssociationSet>
-          <FunctionImport Name="UsuarioDireccionAdd">
-            <Parameter Name="UserName" Mode="In" Type="String" />
-            <Parameter Name="Nombre" Mode="In" Type="String" />
-            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
-            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
-            <Parameter Name="Email" Mode="In" Type="String" />
-            <Parameter Name="Password" Mode="In" Type="String" />
-            <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
-            <Parameter Name="Sexo" Mode="In" Type="String" />
-            <Parameter Name="Telefono" Mode="In" Type="String" />
-            <Parameter Name="Celular" Mode="In" Type="String" />
-            <Parameter Name="Estatus" Mode="In" Type="Boolean" />
-            <Parameter Name="CURP" Mode="In" Type="String" />
-            <Parameter Name="Imagen" Mode="In" Type="Binary" />
-            <Parameter Name="IdRol" Mode="In" Type="Int32" />
-            <Parameter Name="Calle" Mode="In" Type="String" />
-            <Parameter Name="NumeroInterior" Mode="In" Type="String" />
-            <Parameter Name="NumeroExterior" Mode="In" Type="String" />
-            <Parameter Name="IdColonia" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="UsuarioDireccionUpdate">
             <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
             <Parameter Name="UserName" Mode="In" Type="String" />
@@ -485,6 +466,27 @@
             <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
             <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
             <Parameter Name="IdRol" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UsuarioDireccionAdd">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+            <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="Sexo" Mode="In" Type="String" />
+            <Parameter Name="Telefono" Mode="In" Type="String" />
+            <Parameter Name="Celular" Mode="In" Type="String" />
+            <Parameter Name="Estatus" Mode="In" Type="Boolean" />
+            <Parameter Name="CURP" Mode="In" Type="String" />
+            <Parameter Name="Imagen" Mode="In" Type="Binary" />
+            <Parameter Name="IdRol" Mode="In" Type="Int32" />
+            <Parameter Name="Calle" Mode="In" Type="String" />
+            <Parameter Name="NumeroInterior" Mode="In" Type="String" />
+            <Parameter Name="NumeroExterior" Mode="In" Type="String" />
+            <Parameter Name="IdColonia" Mode="In" Type="Int32" />
+            <Parameter Name="LastId" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="rol">
@@ -871,7 +873,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="UsuarioDireccionAdd" FunctionName="HLeonProgramacionEnCapasModel.Store.UsuarioDireccionAdd" />
           <FunctionImportMapping FunctionImportName="UsuarioDireccionUpdate" FunctionName="HLeonProgramacionEnCapasModel.Store.UsuarioDireccionUpdate" />
           <FunctionImportMapping FunctionImportName="UsuarioSinDireccionUpdate" FunctionName="HLeonProgramacionEnCapasModel.Store.UsuarioSinDireccionUpdate" />
           <FunctionImportMapping FunctionImportName="UsuarioDireccionDelete" FunctionName="HLeonProgramacionEnCapasModel.Store.UsuarioDireccionDelete" />
@@ -963,6 +964,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UsuarioDireccionAdd" FunctionName="HLeonProgramacionEnCapasModel.Store.UsuarioDireccionAdd" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
