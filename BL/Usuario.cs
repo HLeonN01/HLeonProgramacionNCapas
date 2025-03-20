@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
+using System.Data.OleDb;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
@@ -553,7 +555,7 @@ namespace BL
                                         usuario.Estatus, usuario.CURP,
                                         usuario.Imagen, usuario.Rol.IdRol, usuario.Direccion.Calle,
                                         usuario.Direccion.NumeroInterior, usuario.Direccion.NumeroExterior,
-                                        usuario.Direccion.Colonia.IdColonia, usuario.IdUsuario);
+                                        usuario.Direccion.Colonia.IdColonia,usuario.IdUsuario);
                     if (rowsAffect > 0)
                     {
                         result.Correct = true;
@@ -1248,12 +1250,14 @@ namespace BL
                             {
                                 usuario.Rol.IdRol = usuarios.IdRol.Value;
                             }
+                            usuario.Rol.Nombre = usuarios.NombreRol;
                             usuario.Direccion.Calle = usuarios.Calle;
                             usuario.Direccion.NumeroInterior = usuarios.NumeroInterior;
                             usuario.Direccion.NumeroExterior = usuarios.NumeroExterior;
                             usuario.Direccion.Colonia.Nombre = usuarios.NombreColonia;
                             usuario.Direccion.Colonia.CodigoPostal = usuarios.CodigoPostal;
                             usuario.Direccion.Colonia.Municipio.Nombre = usuarios.NombreMunicipio;
+                            
                             result.Objects.Add(usuario);
 
                         }
@@ -1269,5 +1273,59 @@ namespace BL
             }
             return result;
         }
+        public static ML.Result CargaMasivaTXT()
+        {
+            ML.Result result = new ML.Result();
+            Console.WriteLine("CARGA MASIVA");
+            string ruta = @"C:\Users\digis\Documents\Hugo Leon Negrete\Inserts.txt";
+            try
+            {
+                StreamReader streamReader = new StreamReader(ruta);
+                string fila = "";
+
+                //leyendo encabezados
+                streamReader.ReadLine();
+
+                while ((fila = streamReader.ReadLine()) != null)
+                {
+                    string[] valores = fila.Split('|');
+                    ML.Usuario usuario = new ML.Usuario();
+                    usuario.Rol = new ML.Rol();
+                    usuario.Direccion = new ML.Direccion();
+                    usuario.Direccion.Colonia = new ML.Colonia();
+                    usuario.UserName = valores[0];
+                    usuario.Nombre = valores[1];
+                    usuario.ApellidoPaterno = valores[2];
+                    usuario.ApellidoMaterno = valores[3];
+                    usuario.Email = valores[4];
+                    usuario.Password = valores[5];
+                    usuario.FechaNacimiento = valores[6];
+                    usuario.Sexo = valores[7];
+                    usuario.Telefono = valores[8];
+                    usuario.Celular = valores[9];
+                    usuario.Estatus = valores[10]=="1";
+                    usuario.CURP = valores[11];
+                    //usuario.Imagen = null;
+                    usuario.Rol.IdRol = Convert.ToInt32(valores[12]);
+                    usuario.Direccion.Calle = valores[13];
+                    usuario.Direccion.NumeroInterior = valores[14];
+                    usuario.Direccion.NumeroExterior = valores[15];
+                    usuario.Direccion.Colonia.IdColonia = Convert.ToInt16(valores[16]);
+                    //usuario.IdUsuario = Convert.ToInt32(valores[17]);
+                    BL.Usuario.AddEF(usuario);
+                    //Console.WriteLine(fila);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+                result.Ex = ex;
+            }
+            return result;
+        }
+
+     
     }
 }

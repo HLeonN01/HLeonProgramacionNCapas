@@ -45,39 +45,41 @@ namespace PL
             } while (opcion !=6);*/
 
 
-            do
-            {                
-                Console.WriteLine("***********************************");
-                Console.WriteLine("Seleccione su operacion");
-                Console.WriteLine("1. Agregar");
-                Console.WriteLine("2. Eliminar");
-                Console.WriteLine("3. Actualizar");
-                Console.WriteLine("4. Ver todos los usuarios");
-                Console.WriteLine("5. Ver un solo usuario");
-                Console.WriteLine("6. Salir");
-                Console.WriteLine("***********************************");
-                option = int.Parse(Console.ReadLine());
+            //do
+            //{                
+            //    Console.WriteLine("***********************************");
+            //    Console.WriteLine("Seleccione su operacion");
+            //    Console.WriteLine("1. Agregar");
+            //    Console.WriteLine("2. Eliminar");
+            //    Console.WriteLine("3. Actualizar");
+            //    Console.WriteLine("4. Ver todos los usuarios");
+            //    Console.WriteLine("5. Ver un solo usuario");
+            //    Console.WriteLine("6. Salir");
+            //    Console.WriteLine("***********************************");
+            //    option = int.Parse(Console.ReadLine());
 
-                switch (option)
-                {
-                    case 1:
-                        Rol.Add();
-                        break;
-                    case 2:
-                        Rol.Delete();
-                        break;
-                    case 3:
-                        Rol.Update();
-                        break;
-                    case 4:
-                        Rol.GetAll();
-                        break;
-                    case 5:
-                        Rol.GetById();
-                        break;
-                }
-            } while (option != 6);
+            //    switch (option)
+            //    {
+            //        case 1:
+            //            Rol.Add();
+            //            break;
+            //        case 2:
+            //            Rol.Delete();
+            //            break;
+            //        case 3:
+            //            Rol.Update();
+            //            break;
+            //        case 4:
+            //            Rol.GetAll();
+            //            break;
+            //        case 5:
+            //            Rol.GetById();
+            //            break;
+            //    }
+            //} while (option != 6);
 
+            BL.Usuario.CargaMasivaTXT();
+            Console.ReadKey();
         }
     }
 }
