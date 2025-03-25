@@ -676,6 +676,14 @@ namespace BL
                             usuario.Direccion.Colonia.Nombre = row.NombreColonia;
                             usuario.Direccion.Colonia.CodigoPostal = row.CodigoPostal;
                             usuario.Imagen = row.Imagen;
+                            if (row.Imagen == null)
+                            {
+                                usuario.ImagenBase64 = "";
+                            }
+                            else
+                            {
+                                usuario.ImagenBase64 = Convert.ToBase64String(row.Imagen);
+                            }
                             usuario.Direccion.Colonia.Municipio.Nombre = row.NombreMunicipio;
                             /*
                             if (row.IdRol == null)

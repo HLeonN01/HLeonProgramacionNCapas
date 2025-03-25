@@ -6,12 +6,14 @@ using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel;
 
 namespace ML
 {
     public class Usuario
     {
+        [Column("idUsuario")]
         public int IdUsuario { get; set; }
 
         [DisplayName("Nombre de usuario")]
@@ -72,6 +74,7 @@ namespace ML
 
         [DisplayName("Imagen")]
         public byte[] Imagen { get; set; }
+        public string ImagenBase64 { get; set; }
 
         public List<object> Usuarios { get; set; }
         public ML.Rol Rol { get; set; }
