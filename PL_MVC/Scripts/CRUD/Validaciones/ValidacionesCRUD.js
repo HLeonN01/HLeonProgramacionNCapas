@@ -13,17 +13,8 @@ function ValidarImagen() {
 
     if (!banderaImg) {
         alert(`Los archivos permitidos deben ser ${extensionesValidas}`)
+        //LIMPIAR EL INPUT
         $('#inptImage').val("")
-    }
-}
-
-function VisualizarImagen(input) {
-    if (input.files) {
-        var reader = new FileReader();
-        reader.onload = function (elemento) {
-            $('#img').attr('src', elemento.target.result)
-        }
-        reader.readAsDataURL(input.files[0])
     }
 }
 
@@ -32,7 +23,19 @@ function ValidarTamanio(input) {
     //console.log(input)
     if (fileSize > 2) {
         alert("La Imagen no puede superar los 2MB");
-        $('#inptImage').val("")
+        $('#inptFileImagen').val("")
+    }
+}
+
+function VisualizarImagen(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (elemento) {
+            $('#idUsuarioImagen').attr('src', elemento.target.result)
+        }
+        reader.readAsDataURL(input.files[0])
+    } else {
+        $('#idUsuarioImagen').attr('src', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdnWgZDAdXZemvgse9Ky3sguQEMSeVUkxkcsk_ZFvu9uLsbaEAjdfBLamh7giYmG6vWZs&usqp=CAU');
     }
 }
 
@@ -130,26 +133,26 @@ function ValidarEmail(evt) {
 
 }
 
-function ValidarPassword(evt) {
-    //let inputField = evt.target;
-    const regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$");
-    var ErrorMessage = document.getElementById("inptPassword");
-    ////ErrorMessage.textContent = '';
-    //var inputField = docucument.getElementById("password");
-    //var ErrorMessage = inputField.parentNode.querySelector('.error')
-    ErrorMessage.textContent = ' ';
-    //console.log(entrada);
+//function ValidarPassword(evt) {
+//    //let inputField = evt.target;
+//    const regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$");
+//    var ErrorMessage = document.getElementById("inptPassword");
+//    ////ErrorMessage.textContent = '';
+//    //var inputField = docucument.getElementById("password");
+//    //var ErrorMessage = inputField.parentNode.querySelector('.error')
+//    ErrorMessage.textContent = ' ';
+//    //console.log(entrada);
 
-    if ((regex.test(evt.value) == false)) {
-        //evt.style.borderColor = 'red';
-        ErrorMessage.textContent = 'Las contraseñas deben tener un minimo 7 Letras, una mayuscula y un numero';
-        evt.style.borderColor = 'red';
-    } else {
-        //evt.style.borderColor = 'green';
-        ErrorMessage.textContent = '';
-        evt.style.borderColor = 'green';
-    }
-}
+//    if ((regex.test(evt.value) == false)) {
+//        //evt.style.borderColor = 'red';
+//        ErrorMessage.textContent = 'Las contraseñas deben tener un minimo 7 Letras, una mayuscula y un numero';
+//        evt.style.borderColor = 'red';
+//    } else {
+//        //evt.style.borderColor = 'green';
+//        ErrorMessage.textContent = '';
+//        evt.style.borderColor = 'green';
+//    }
+//}
 
 
 function ValidarConfirmacionPassword() {

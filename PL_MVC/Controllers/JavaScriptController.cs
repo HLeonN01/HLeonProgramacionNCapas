@@ -33,8 +33,7 @@ namespace PL_MVC.Controllers
         [HttpPost]
         public JsonResult Form(ML.Usuario usuario)
         {
-            HttpPostedFileBase file = Request.Files["inptImage"];
-            if (file != null)
+            if (!string.IsNullOrEmpty(usuario.ImagenBase64))
             {
                 usuario.Imagen = Convert.FromBase64String(usuario.ImagenBase64);
             }
@@ -43,19 +42,8 @@ namespace PL_MVC.Controllers
                 ML.Result resultAdd = BL.Usuario.AddEF(usuario);
                 return Json(resultAdd, JsonRequestBehavior.AllowGet);
             }
-            else
-            {
-                if (usuario.Direccion.IdDireccion == 0)
-                {
-                    ML.Result resultDireccion = BL.Usuario.UusarioSinDireccionUpdate(usuario);
-                    return Json(resultDireccion, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
-                    ML.Result resultConDireccion = BL.Usuario.UsuarioDireccionUpdate(usuario);
-                    return Json(resultConDireccion, JsonRequestBehavior.AllowGet) ;
-                }
-            }
+            ML.Result resultConDireccion = BL.Usuario.UsuarioDireccionUpdate(usuario);
+            return Json(resultConDireccion, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

@@ -9,7 +9,7 @@
 </div>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="showModal()">
+<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#idModal" onclick="showModal()">
     Agregar usuario
 </button>
 
@@ -25,7 +25,9 @@
                 <div>
                     <h6>Datos Personales</h6>
                     <div class="row">
-                        <input id="inptIdUsuario" type="hidden" />                        
+                        <input id="inptIdUsuario" type="hidden" />   
+                        <input id="intpIdDireccion" type="hidden"/>
+                        <input id="inptImageBase64" name="ImagenBase64" type="hidden"/>
                         <div class="col-4">
                             <label>Nombre</label>
                             <input type="text" id="inptNombre" class="form-control" onkeypress="SoloLetras(event)" required />
@@ -57,11 +59,11 @@
                             <label>Genero</label>
                             <br />
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="sexo" id="rdSexo" value="M">
+                                <input class="form-check-input" type="radio" name="sexo" id="rdSexoM" value="M">
                                 <label class="form-check-label" for="radioMasculino">Masculino</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="sexo" id="rdSexo" value="F">
+                                <input class="form-check-input" type="radio" name="sexo" id="rdSexoF" value="F">
                                 <label class="form-check-label" for="radioFemenino">Femenino</label>
                             </div>
                         </div>
@@ -150,7 +152,7 @@
                         <div class="col-4">
                             <label>Estatus</label>
                             <div class="form-check form-switch d-flex flex-column align-items-center">
-                                <input class="form-check-input" type="checkbox" data-toggle="switch" name="Resend" id="inptEstatus" value="true" checked style="transform: scale(1.2); width: 2.5rem; height: 1.2rem;" required/>
+                                <input class="form-check-input" type="checkbox" data-toggle="switch" name="Resend" id="inptEstatus" value="true" checked style="transform: scale(1.2); width: 2.5rem; height: 1.2rem;" required />
                             </div>
 
                         </div>
@@ -160,10 +162,14 @@
                             </select>
                         </div>
                         <div class="col-4">
-                            <img id="idUsuarioImagen" width="50" height="50"/>                           
+                            <div class="text-center">
+                                <img id="idUsuarioImagen" width="100" height="80"
+                                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdnWgZDAdXZemvgse9Ky3sguQEMSeVUkxkcsk_ZFvu9uLsbaEAjdfBLamh7giYmG6vWZs&usqp=CAU" />
+                            </div>
                             <label>Imagen</label>
-                            <input type="file" name="image" class="form-control" id="inptImage" enctype="multipart/form-data"  onchange="ValidarImagen(), VisualizarImagen(this), ValidarTamanio(this)"/>
+                            <input type="file" name="image" class="form-control" id="inptImage" onchange="ValidarImagen(), VisualizarImagen(this), ValidarTamanio(this)" />
                         </div>
+
                     </div>
 
                 </div>

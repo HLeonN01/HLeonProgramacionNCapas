@@ -754,7 +754,7 @@ namespace BL
                         usuario.Direccion.NumeroInterior = cmd.NumeroInterior;
                         usuario.Direccion.Colonia.CodigoPostal = cmd.CodigoPostal;
                         usuario.Direccion.Colonia.Municipio.Nombre = cmd.NombreMunicipio;
-                        usuario.Imagen = cmd.Imagen;
+                        usuario.ImagenBase64 = Convert.ToBase64String(cmd.Imagen ?? new byte[0]);
                         if (cmd.IdRol == null)
                         {
                             usuario.Rol.IdRol = 0;

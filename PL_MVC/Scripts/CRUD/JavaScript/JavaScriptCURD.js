@@ -2,6 +2,7 @@
     GetAll();
 });
 function showModal() {
+    limpiarFormulario();
     if ($("#inptIdUsuario").val()) {
         GetById();       
     } else {
@@ -10,6 +11,31 @@ function showModal() {
         $('#idModal').modal("show");
     }
 }
+function limpiarFormulario() {
+    $("#inptIdUsuario").val(""); 
+    $("#inptNombre").val("");
+    $("#inptApellidoPaterno").val("");
+    $("#inptApellidoMaterno").val("");
+    $("#inptCURP").val("");
+    $("#datepicker").val("");
+    $("input[name='sexo']").prop("checked", false);
+    $("#inptTelefono").val("");
+    $("#inptCelular").val("");
+    $("#inptCalle").val("");
+    $("#inptNumeroInterior").val("");
+    $("#inptNumeroExterior").val("");
+    $("#selectEstado").val("");
+    $("#selectMunicipio").val("");
+    $("#selectColonia").val("");
+    $("#inptUserName").val("");
+    $("#inptCorreo").val("");
+    $("#inptPassword").val("");
+    $("#inptPasswordConfirm").val("");
+    $("#inptEstatus").prop("checked", true);
+    $("#selectRoles").val("");
+    $("#inptImage").val("");
+}
+
 function GetAll() {
     let url = window.location.origin;
     let newUrl = url + "/JavaScript/GetAll";
@@ -26,9 +52,9 @@ function GetAll() {
                 $.each(result.Objects, function (i, valor) {
                     if (!seenIds.has(valor.IdUsuario)) {
                         seenIds.add(valor.IdUsuario);
-                        let Imagen = valor.ImagenBase64
-                            ? `<img src="data:image/png;base64, ${valor.ImagenBase64}" alt="Imagen del usuario" style="width: 50px; height: 50px;">`
-                            : "Sin imagen";
+                        let Imagen = valor.ImagenBase64 && valor.ImagenBase64.trim() !== ""
+                            ? `<img src="data:image/png;base64, ${valor.ImagenBase64}" alt="Imagen del usuario" style="width: 100px; height: 80px;">`
+                            : `<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdnWgZDAdXZemvgse9Ky3sguQEMSeVUkxkcsk_ZFvu9uLsbaEAjdfBLamh7giYmG6vWZs&usqp=CAU" alt="Imagen por defecto" style="width: 150px; height: 80px;">`;
                         let fila = `<tr data-id="${valor.IdUsuario}">                                                    
                             <td>${valor.UserName}</td>
                             <td>${valor.Nombre} ${valor.ApellidoPaterno} ${valor.ApellidoMaterno}</td>
@@ -116,7 +142,7 @@ function GetAllRoles(callback) {
         }
     })
 }
-function MunicipioGetByIdEstado() {
+function MunicipioGetByIdEstado(callback) {
     let url = window.location.origin;
     let newurl = url + "/JavaScript/GetByIdEstado";
     let ddlEstado = $("#selectEstado").val();
@@ -139,8 +165,11 @@ function MunicipioGetByIdEstado() {
                     let option = "<option value=" + valor.IdMunicipio + ">" + valor.Nombre + "</option>";
                     ddlMunicipio.append(option);
                 });
+                if (callback) {
+                    callback();
+                }
+                ColoniaGetByIdMunicipio();
             }
-            ColoniaGetByIdMunicipio()
         },
         error: function (xhr) {
             console.log(xhr)
@@ -148,42 +177,12 @@ function MunicipioGetByIdEstado() {
     })
 }
 
-function MunicipioGetByIdEstadoModal(idMunicipio) {
-    let url = window.location.origin;
-    let newurl = url + "/JavaScript/GetByIdEstado";
-    let ddlEstado = $("#selectEstado").val();
-    $.ajax({
-        url: newurl + "?IdEstado=" + ddlEstado,
-        type: "GET",
-        dataType: "JSON",
-        //data -> SOLO PARA MODELOS
-        success: function (result) {
-            if (result.Correct) {
-                let ddlMunicipio = $('#selectMunicipio');
-                let ddlColonia = $('#selectColonia');
-                let municipioDefault = "<option value='0'>Seleccione el municipio</option>";
-                let coloniaDefault = "<option value='0'>Seleccione su colonia</option>";
-                ddlMunicipio.append(municipioDefault);
-                ddlColonia.append(coloniaDefault);
-                $.each(result.Objects, function (i, valor) {
-                    let option = "<option value=" + valor.IdMunicipio + ">" + valor.Nombre + "</option>";
-                    ddlMunicipio.append(option);
-                });
-            }
-            ColoniaGetByIdMunicipio()
-        },
-        error: function (xhr) {
-            console.log(xhr)
-        }
-    })
-}
-
-function ColoniaGetByIdMunicipio() {
+function ColoniaGetByIdMunicipio(callback) {
     let url = window.location.origin;
     let newurl = url + "/JavaScript/GetByIdMunicipio";
-    let ddlEstado = $("#selectMunicipio").val();
+    let ddlMunicipio = $("#selectMunicipio").val();
     $.ajax({
-        url: newurl + "?IdMunicipio=" + ddlEstado,
+        url: newurl + "?IdMunicipio=" + ddlMunicipio,
         type: "GET",
         dataType: "JSON",
         success: function (result) {
@@ -196,7 +195,11 @@ function ColoniaGetByIdMunicipio() {
                     let option = "<option value=" + valor.IdColonia + ">" + valor.Nombre + "</option>";
                     ddlColonia.append(option);
                 });
+                if (callback) {
+                    callback();
+                }
             }
+            
         },
         error: function (xhr) {
             console.log(xhr)
@@ -204,37 +207,21 @@ function ColoniaGetByIdMunicipio() {
     })
 }
 
-function ColoniaGetByIdMunicipioModal() {
-    let url = window.location.origin;
-    let newurl = url + "/JavaScript/GetByIdMunicipio";
-    let ddlEstado = $("#selectMunicipio").val();
-    $.ajax({
-        url: newurl + "?IdMunicipio=" + ddlEstado,
-        type: "GET",
-        dataType: "JSON",
-        success: function (result) {
-            if (result.Correct) {
-                let ddlColonia = $('#selectColonia');
-                let optionDefault = "<option value=0>Seleccione su colonia</option>";
-                ddlColonia.append(optionDefault);
-                $.each(result.Objects, function (i, valor) {
-                    let option = "<option value=" + valor.IdColonia + ">" + valor.Nombre + "</option>";
-                    ddlColonia.append(option);
-                });
-            }
-        },
-        error: function (xhr) {
-            console.log(xhr)
-        }
-    })
-}
 $("#datepicker").datepicker({
     dateFormat: "dd-mm-yy",
     showAnim: "clip"
 });
+$("#inptImage").change(function () {
+    let file = this.files[0];
+    let reader = new FileReader();
+    reader.onloadend = function () {
+        $("#inptImageBase64").val(reader.result.split(",")[1]); 
+    };
+    reader.readAsDataURL(file);
+});
 function Add() {
     let url = window.location.origin;
-    let newUrl = url + "/JavaScript/Form";
+    let newUrl = url + "/JavaScript/Form";    
     $.ajax({
         url: newUrl,
         type: "POST",
@@ -246,7 +233,7 @@ function Add() {
             apellidoMaterno: $("#inptApellidoMaterno").val(),
             curp: $("#inptCURP").val(),
             fechaNacimiento: $("#datepicker").val(),
-            sexo: $("#rdSexo").val(),
+            sexo: $("input[name='sexo']:checked").val(),
             telefono: $("#inptTelefono").val(),
             celular: $("#inptCelular").val(),
             direccion: {
@@ -255,14 +242,14 @@ function Add() {
                 numeroExterior: $("#inptNumeroExterior").val(),
                 colonia: {
                     idColonia: $("#selectColonia").val(),
-                    municipio: {                   
+                    municipio: {
                         idMunicipio: $("#selectMunicipio").val(),
-                        estado: {                        
+                        estado: {
                             idEstado: $("#selectEstado").val(),
                         }
                     }
                 }
-            },            
+            },
             userName: $("#inptUserName").val(),
             email: $("#inptCorreo").val(),
             password: $("#inptPassword").val(),
@@ -270,8 +257,8 @@ function Add() {
             rol: {
                 idRol: $("#selectRoles").val(),
             },
-            imagen: $("#inptImage").val()
-        },
+            imagenBase64: $("#inptImageBase64").val()
+        },        
         success: function (result) {
             console.log(result);
             if (result.Correct) {
@@ -302,17 +289,13 @@ function GetById(idUsuario) {
             console.log(result);
             if (result.Correct) {
                 $("#inptIdUsuario").val(result.Object.IdUsuario);
+                $("#intpIdDireccion").val(result.Object.Direccion.IdDireccion);
                 $("#inptNombre").val(result.Object.Nombre);   
                 $("#inptApellidoPaterno").val(result.Object.ApellidoMaterno);
                 $("#inptApellidoMaterno").val(result.Object.ApellidoPaterno);
                 $("#inptCURP").val(result.Object.CURP);
-                $("#datepicker").val(result.Object.FechaNacimiento);
-                if (result.Object.Sexo == "M") {
-                    $("{-input[name='sexo'][value=" + result.Object.Sexo + "]").prop("checked", true); 
-                }
-                if (result.Object.Sexo == "H") {
-                    $("input[name='sexo'][value=" + result.Object.Sexo + "]").prop("checked", true);
-                }
+                $("#datepicker").val(result.Object.FechaNacimiento);                
+                $("input[name='sexo'][value='" + result.Object.Sexo.trim() + "']").prop("checked", true);
                 $("#inptTelefono").val(result.Object.Telefono);
                 $("#inptCelular").val(result.Object.Celular)
                 $("#inptCalle").val(result.Object.Direccion.Calle);
@@ -322,7 +305,12 @@ function GetById(idUsuario) {
                 $("#inptCorreo").val(result.Object.Email);
                 $("#inptPassword").val(result.Object.Password);
                 $("#inptPasswordConfirm").val(result.Object.Password);
-                $("#inptEstatus").prop('checked', result.Object.Estatus === 'true')
+                $("#inptEstatus").prop('checked', result.Object.Estatus === true);
+                let imagenUsuario = result.Object.ImagenBase64 && result.Object.ImagenBase64.trim() !== ""
+                    ? `data:image/png;base64, ${result.Object.ImagenBase64}`
+                    : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdnWgZDAdXZemvgse9Ky3sguQEMSeVUkxkcsk_ZFvu9uLsbaEAjdfBLamh7giYmG6vWZs&usqp=CAU";
+                $('#ImagenBase64').attr('src', imagenUsuario);
+                //$('#idUsuarioImagen').attr('src', imagenUsuario);
                 
                 GetAllRoles(function () {
                     $("#selectRoles").val(result.Object.Rol.IdRol);
@@ -330,19 +318,18 @@ function GetById(idUsuario) {
 
                 
                 GetAllEstados(function () {
-                    $("#selectEstado").val(result.Object.Direccion.Colonia.Municipio.Estado.IdEstado);                    
+                    $("#selectEstado").val(result.Object.Direccion.Colonia.Municipio.Estado.IdEstado);
+
+                    MunicipioGetByIdEstado(function () {
+                        $("#selectMunicipio").val(result.Object.Direccion.Colonia.Municipio.IdMunicipio);
+
+                        ColoniaGetByIdMunicipio(function () {
+                            $("#selectColonia").val(result.Object.Direccion.Colonia.IdColonia);
+
+                        });
+                    });
                 });
 
-                MunicipioGetByIdEstadoModal(function () {
-                    $("#selectMunicipio").val(result.Object.Direccion.Colonia.Municipio.IdMunicipio);
-                });
-                console.log(MunicipioGetByIdEstadoModal);
-
-                if (result.Object.Imagen != null) {
-                   //console.log($("#inptImage").attr("src", "data:image/png;base64," + result.Object.Imagen));
-                } else {
-                    $("#inptImage").attr("src", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdnWgZDAdXZemvgse9Ky3sguQEMSeVUkxkcsk_ZFvu9uLsbaEAjdfBLamh7giYmG6vWZs&usqp=CAU");
-                }
                 $('#idModal').modal("show");
             }
         },
@@ -352,54 +339,23 @@ function GetById(idUsuario) {
     })
 }
 function Delete(idUsuario) {
-    let url = window.location.origin;
-    let newUrl = url + "/JavaScript/Delete";
-    $.ajax({
-        url: newUrl + "?IdUsuario=" + idUsuario,
-        type: "GET",
-        dataType: "JSON",
-        success: function (result) {
-            alert("El usuario se elimino con exito");
-            $("#idModal").modal('hide');
-            GetAll();
-        },
-        error: function (xhr) {
-            console.log(xhr)
-        }
-    })
-}
-function ValidarImagen() {
-    var input = $('#inptFileImagen')[0].files[0].name.split('.').pop().toLowerCase()
-    //console.log(input)
-    var extensionesValidas = ['png', 'jpg', 'jpeg', 'webp']
-    var banderaImg = false
-
-    for (var i = 0; i <= extensionesValidas.length; i++) {
-        if (input == extensionesValidas[i]) {
-            banderaImg = true
-        }
-    }
-
-    if (!banderaImg) {
-        alert(`Los archivos permitidos deben ser ${extensionesValidas}`)
-        //LIMPIAR EL INPUT
-        $('#inptFileImagen').val("")
-    }
-}
-function VisualizarImagen(input) {
-    if (input.files) {
-        var reader = new FileReader();
-        reader.onload = function (elemento) {
-            $('#img').attr('src', elemento.target.result)
-        }
-        reader.readAsDataURL(input.files[0])
-    }
-}
-function ValidarTamanio(input) {
-    const fileSize = input.files[0].size / 1024 / 1024;
-    //console.log(input)
-    if (fileSize > 2) {
-        alert("La Imagen no puede superar los 2MB");
-        $('#inptFileImagen').val("")
+    if (confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
+        let url = window.location.origin;
+        let newUrl = url + "/JavaScript/Delete";
+        $.ajax({
+            url: newUrl + "?IdUsuario=" + idUsuario,
+            type: "GET",
+            dataType: "JSON",
+            success: function (result) {
+                alert("El usuario se eliminó con éxito");
+                $("#idModal").modal('hide');
+                GetAll();  
+            },
+            error: function (xhr) {
+                console.log(xhr);
+            }
+        });
+    } else {        
+        console.log("Eliminación cancelada");
     }
 }
