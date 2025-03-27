@@ -644,7 +644,7 @@ namespace BL
             try
             {
                 using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
-                {                    
+                {
                     var cmd = context.UsuarioGetAll(usuarioObj.Nombre, usuarioObj.ApellidoPaterno, usuarioObj.ApellidoMaterno, usuarioObj.Rol.IdRol).ToList();
                     if (cmd.Count > 0)
                     {
@@ -670,6 +670,7 @@ namespace BL
                             usuario.CURP = row.CURP;  
                             usuario.UserName = row.UserName;
                             usuario.Rol.Nombre = row.NombreRol;
+                            
                             usuario.Direccion.Calle = row.Calle;
                             usuario.Direccion.NumeroInterior = row.NumeroInterior;
                             usuario.Direccion.NumeroExterior = row.NumeroExterior;
@@ -677,15 +678,15 @@ namespace BL
                             usuario.Direccion.Colonia.CodigoPostal = row.CodigoPostal;
                             usuario.Imagen = row.Imagen;
                             usuario.Direccion.Colonia.Municipio.Nombre = row.NombreMunicipio;
-                            /*
-                            if (row.IdRol == null)
-                            {
-                                usuario.IdRol = 0;
-                            }
-                            else
-                            {
-                                usuario.IdRol = row.IdRol.Value;
-                            }*/
+
+                            //if (row.IdRol == null)
+                            //{
+                            //    usuario.Rol.IdRol = 0;
+                            //}
+                            //else
+                            //{
+                            //    usuario.Rol.IdRol = row.IdRol.Value;
+                            //}
                             result.Objects.Add(usuario);
                         }
                          

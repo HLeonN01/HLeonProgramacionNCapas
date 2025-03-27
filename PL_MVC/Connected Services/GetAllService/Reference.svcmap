@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="4c79de05-8e5c-4957-beaa-4459c7aa0b60" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:65169/GetAll.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="GetAll.wsdl" MetadataType="Wsdl" ID="9ae61c89-328a-4de2-b3ab-8edebdb0f5bf" SourceId="1" SourceUrl="http://localhost:65169/GetAll.svc?wsdl" />
+    <MetadataFile FileName="GetAll.xsd" MetadataType="Schema" ID="bf163118-7d23-4f46-913b-16036088ad39" SourceId="1" SourceUrl="http://localhost:65169/GetAll.svc?xsd=xsd4" />
+    <MetadataFile FileName="GetAll1.xsd" MetadataType="Schema" ID="deddef3f-e0f3-44c0-aedd-86610e4540b2" SourceId="1" SourceUrl="http://localhost:65169/GetAll.svc?xsd=xsd5" />
+    <MetadataFile FileName="GetAll2.xsd" MetadataType="Schema" ID="81d26eb0-f320-469b-a83a-4e3088a6d1ce" SourceId="1" SourceUrl="http://localhost:65169/GetAll.svc?xsd=xsd0" />
+    <MetadataFile FileName="GetAll3.xsd" MetadataType="Schema" ID="e9a76240-0caf-41c7-9cb7-b2a4288a8525" SourceId="1" SourceUrl="http://localhost:65169/GetAll.svc?xsd=xsd2" />
+    <MetadataFile FileName="GetAll4.xsd" MetadataType="Schema" ID="33bb252e-629e-4d4a-92ac-a7f575b6d7fb" SourceId="1" SourceUrl="http://localhost:65169/GetAll.svc?xsd=xsd3" />
+    <MetadataFile FileName="GetAll.disco" MetadataType="Disco" ID="6a08f7f8-4210-4486-83ef-d09cabb7db9d" SourceId="1" SourceUrl="http://localhost:65169/GetAll.svc?disco" />
+    <MetadataFile FileName="GetAll5.xsd" MetadataType="Schema" ID="4954221d-04b0-4717-9eb4-0c07865ce6ad" SourceId="1" SourceUrl="http://localhost:65169/GetAll.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

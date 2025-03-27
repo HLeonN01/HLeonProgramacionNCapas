@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="017d6015-2843-4138-8537-9dfcb621ef03" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:65169/UserDelete.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="UserDelete.xsd" MetadataType="Schema" ID="58468947-213c-4d5c-a126-0d5f91552791" SourceId="1" SourceUrl="http://localhost:65169/UserDelete.svc?xsd=xsd1" />
+    <MetadataFile FileName="UserDelete1.xsd" MetadataType="Schema" ID="a1478937-20db-4aca-8975-f7d6e1d3de25" SourceId="1" SourceUrl="http://localhost:65169/UserDelete.svc?xsd=xsd0" />
+    <MetadataFile FileName="UserDelete2.xsd" MetadataType="Schema" ID="0f71b9c4-532f-4545-b056-7cb5623fd790" SourceId="1" SourceUrl="http://localhost:65169/UserDelete.svc?xsd=xsd3" />
+    <MetadataFile FileName="UserDelete3.xsd" MetadataType="Schema" ID="8b2a2bd6-7a5b-478b-af07-555b0a201ca6" SourceId="1" SourceUrl="http://localhost:65169/UserDelete.svc?xsd=xsd4" />
+    <MetadataFile FileName="UserDelete.wsdl" MetadataType="Wsdl" ID="3a4bdc09-f7bb-4cff-8f06-0bb806fec861" SourceId="1" SourceUrl="http://localhost:65169/UserDelete.svc?wsdl" />
+    <MetadataFile FileName="UserDelete4.xsd" MetadataType="Schema" ID="d6d87be5-891a-452d-990a-8a89ecb1a331" SourceId="1" SourceUrl="http://localhost:65169/UserDelete.svc?xsd=xsd2" />
+    <MetadataFile FileName="UserDelete.disco" MetadataType="Disco" ID="3a85d1a7-4f55-4c23-b9ba-0ecb5ae4bf47" SourceId="1" SourceUrl="http://localhost:65169/UserDelete.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

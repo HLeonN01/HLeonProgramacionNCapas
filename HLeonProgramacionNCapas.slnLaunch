@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "PL_MVC\\PL_MVC.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "SL\\SL.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

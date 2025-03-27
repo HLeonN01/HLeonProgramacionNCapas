@@ -51,6 +51,8 @@
                     <br />
                     <div class="row">
                         <div class="col-4">
+                            @Html.HiddenFor(model=> model.IdUsuario)
+                            @Html.HiddenFor(model => model.Direccion.IdDireccion)
                             @Html.LabelFor(model => model.Nombre)
                             @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @id = "Nombre", @name = "Nombre", @required = true, @placeholder = "Ingrese su Nombre", @onkeypress = "SoloLetras(event)" })
                             <span style="color:red" class="error"></span>
