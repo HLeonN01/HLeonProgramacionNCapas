@@ -7,7 +7,7 @@
         "Action": "Start"
       },
       {
-        "Path": "SL\\SL.csproj",
+        "Path": "SL_WebAPI\\SL_WebAPI.csproj",
         "Action": "Start"
       }
     ]

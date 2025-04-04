@@ -93,10 +93,10 @@
                     @Html.LabelFor(model => model.ApellidoMaterno)
                     @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control" })
                 </div>
-                @*<div class="col-4">
+                <div class="col-4">
                     @Html.LabelFor(model => model.Rol.Roles)
                     @Html.DropDownListFor(model => model.Rol.IdRol, new SelectList(Model.Rol.Roles,"IdRol", "Nombre"), "Seleccione el rol", new { @class = "form-control text-center", @style = "border: 2px solid purple;" })
-                </div>*@
+                </div>
                 <div class="text-center">
                     <div class="col-12">
                         <button class="btn btn-outline-info" type="submit"> <i class="bi bi-search"></i></button>
