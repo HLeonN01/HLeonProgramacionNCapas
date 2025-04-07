@@ -710,6 +710,7 @@ namespace PL_MVC.Controllers
                             ML.Usuario resultItemList = Newtonsoft.Json.JsonConvert.DeserializeObject<ML.Usuario>(readTask.Result.Object.ToString());
                             result.Object = resultItemList;
                             result.Correct = true;
+
                             ML.Result resultDDL = BL.Rol.GetAllEF();
                             resultItemList.Rol.Roles = resultDDL.Objects;
                             ML.Result estadoDDL = BL.Estado.GetAllEF();
@@ -740,10 +741,10 @@ namespace PL_MVC.Controllers
             usuario.Direccion.Colonia = new ML.Colonia();
             usuario.Direccion.Colonia.Municipio = new ML.Municipio();
             usuario.Direccion.Colonia.Municipio.Estado = new ML.Estado();
-            ML.Result resultDDL1 = BL.Rol.GetAllEF();
-            usuario.Rol.Roles = resultDDL1.Objects;
-            ML.Result estadoDDL1 = BL.Estado.GetAllEF();
-            usuario.Direccion.Colonia.Municipio.Estado.Estados = estadoDDL1.Objects;
+            ML.Result rolDDLUsuarioNuevo = BL.Rol.GetAllEF();
+            usuario.Rol.Roles = rolDDLUsuarioNuevo.Objects;
+            ML.Result estadoDDLUsuarioNuevo = BL.Estado.GetAllEF();
+            usuario.Direccion.Colonia.Municipio.Estado.Estados = estadoDDLUsuarioNuevo.Objects;
             return View(usuario);
         }
 
