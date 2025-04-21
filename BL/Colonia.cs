@@ -33,7 +33,7 @@ namespace BL
                             {
                                 colonia.Municipio.IdMunicipio = colonias.IdMunicipio.Value;
                             }
-
+                            colonia.Municipio.Nombre = colonias.Nombre;
                             result.Objects.Add(colonia);
                             result.Correct = true;
                         }
