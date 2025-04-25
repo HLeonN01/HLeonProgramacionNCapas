@@ -1,0 +1,210 @@
+﻿@model ML.Candidato
+
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .card {
+        margin-top: 20px;
+        box-shadow: 0 0 10px rgb(163, 163, 163);
+        background-color: #f9f9f9;
+        padding: 20px;
+        opacity: 75%;
+    }
+
+    input[type=text], input[type=number],
+    input[type=Email] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: none;
+        border-bottom: 3px solid;
+        border-block-color: rgb(103, 103, 103);
+    }
+</style>
+
+@if (Model.IdCandidato == 0)
+{
+    <h1 class="text-center"><strong>Nuevo candidato</strong></h1>
+}
+else if (Model.IdCandidato > 0)
+{
+    <h1 class="text-center"><strong>Modificar candidato</strong></h1>
+}
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+        <div>
+            @ViewBag.Error
+        </div>
+    </div>
+}
+
+<div class="text-center">
+    @if(Model.Foto == "")
+    {
+        <img class="center" id="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdnWgZDAdXZemvgse9Ky3sguQEMSeVUkxkcsk_ZFvu9uLsbaEAjdfBLamh7giYmG6vWZs&usqp=CAU" max-width="100" height="100">
+    }
+    else
+    {
+        <img src="data:image/*;base64,@(Model.Foto)" width="100" height="100" />
+    }
+</div>
+
+@using (Html.BeginForm("Form", "Candidato", FormMethod.Post, new { @enctype = "multipart/form-data" } ))
+{
+    <div class="container">
+        <div class="card mx-auto" style="max-width: 70%;">
+            <div class="card-body">
+                @Html.HiddenFor(model => model.IdCandidato)
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">@Html.LabelFor(model => model.Nombre)</label>
+                        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @type = "text", @onkeypress = "SoloLetras(event)" })
+                        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                        <span style="color:red" class="error"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">@Html.LabelFor(model => model.ApellidoPaterno)</label>
+                        @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control", @type = "text", @onkeypress = "SoloLetras(event)" })
+                        @Html.ValidationMessageFor(model => model.ApellidoPaterno, "", new { @class = "text-danger"})
+                        <span style="color:red" class="error"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">@Html.LabelFor(model => model.ApellidoMaterno)</label>
+                        @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control", @type = "text", @onkeypress = "SoloLetras(event)" })
+                        @Html.ValidationMessageFor(model => model.ApellidoMaterno, "", new { @class = "text-danger" })
+                        <span style="color:red" class="error"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">@Html.LabelFor(model => model.Edad)</label>
+                        @Html.TextBoxFor(model => model.Edad, new { @class = "form-control", @type = "number", @onkeypress = "SoloNumeros(event)" })
+                        @Html.ValidationMessageFor(model => model.Edad, "", new { @class = "text-danger" })
+                        <span style="color:red" class="error"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">@Html.LabelFor(model => model.Correo)</label>
+                        @Html.TextBoxFor(model => model.Correo, new { @class = "form-control", @type = "email", @onkeypress = "ValidarEmail(this)" })
+                        @Html.ValidationMessageFor(model => model.Correo, "", new { @class = "text-danger" })
+                        <span style="color:red" class="error" id="error"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">@Html.LabelFor(model => model.Telefono)</label>
+                        @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control", @type = "number", @onkeypress = "SoloNumeros(event)" })
+                        @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
+                        <span style="color:red" class="error"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">@Html.LabelFor(model => model.Direccion)</label>
+                        @Html.TextBoxFor(model => model.Direccion, new { @class = "form-control", @type = "text" })
+                        @Html.ValidationMessageFor(model => model.Direccion, "", new { @class = "text-danger" })
+                        <span style="color:red" class="error"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">@Html.LabelFor(model => model.Foto)</label>
+                        @*@Html.TextBoxFor(model => model.Foto, new { @class = "form-control", @type = "file" })*@
+                        <input type="file" class="form-control" id="Foto" accept=".png" name="Foto" onchange="ValidarImagen(), ValidarTamanio(this), VisualizarImagen(this)"/>
+                        <div class="text-center">
+                            @*<button class="btn btn-outline-danger" type="button" onclick="eliminarImagenPrevizualizada()">
+                                <i class="bi bi-file-x"></i>
+                            </button>*@
+                            <p><a class="link-opacity-100-hover text-danger" role="button" onclick="eliminarImagenPrevizualizada()">Eliminar selección</a></p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label">@Html.LabelFor(model => model.Curriculum)</label>
+                        @*@Html.TextBoxFor(model => model.Curriculum, new { @class = "form-control", @type = "file" })*@
+                        <input type="file" class="form-control" id="Curriculum" name="Curriculum" accept=".pdf" onchange="ValidarCurriculum(), ValidarTamCV(this)"/>
+                        <div class="text-center">
+                            <p><a class="link-opacity-100-hover text-danger" role="button" onclick="eliminarCurriculum()">Eliminar selección</a></p>
+                        </div>
+                    </div>
+                    @if (Model.Universidad.Universidades == null)
+                    {
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Universidad</label>
+                            @Html.DropDownListFor(model => model.Universidad.IdUniversidad, new SelectList(string.Empty), "Seleccionar universidad", new { @class = "form-control", @style = "border: 2px solid gray;" })
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Universidad</label>
+                            @Html.DropDownListFor(model => model.Universidad.IdUniversidad, new SelectList(Model.Universidad.Universidades, "IdUniversidad", "Nombre"), "Seleccionar universidad", new { @class = "form-control", @style = "border: 2px solid gray;" })
+                        </div>
+                    }
+                    @if (Model.Carrera.Carreras == null)
+                    {
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Carrera</label>
+                            @Html.DropDownListFor(model => model.Carrera.IdCarrera, new SelectList(string.Empty), "Seleccionar carrera", new { @class = "form-control", @style = "border: 2px solid gray;" })
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Carrera</label>
+                            @Html.DropDownListFor(model => model.Carrera.IdCarrera, new SelectList(Model.Carrera.Carreras, "IdCarrera", "Nombre"), "Seleccionar carrera", new { @class = "form-control", @style = "border: 2px solid gray;" })
+                        </div>
+                    }
+                    @if (Model.BolsaTrabajo.BolsasTrabajo == null)
+                    {
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Bolsa de trabajo</label>
+                            @Html.DropDownListFor(model => model.BolsaTrabajo.IdBolsaTrabajo, new SelectList(string.Empty), "Seleccionar bolsa de trabajo", new { @class = "form-control", @style = "border: 2px solid gray;" })
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Bolsa de trabajo</label>
+                            @Html.DropDownListFor(model => model.BolsaTrabajo.IdBolsaTrabajo, new SelectList(Model.BolsaTrabajo.BolsasTrabajo, "IdBolsaTrabajo", "Nombre"), "Seleccionar bolsa de trabajo", new { @class = "form-control", @style = "border: 2px solid gray;" })
+                        </div>
+                    }
+                    @if (Model.Vacante.Vacantes == null)
+                    {
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Vacante</label>
+                            @Html.DropDownListFor(model => model.Vacante.IdVacante, new SelectList(string.Empty), "Seleccionar vacante", new { @class = "form-control", @style = "border: 2px solid gray;" })
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Vacante</label>
+                            @Html.DropDownListFor(model => model.Vacante.IdVacante, new SelectList(Model.Vacante.Vacantes, "IdVacante", "Nombre"), "Seleccionar vacante", new { @class = "form-control", @style = "border: 2px solid gray;" })
+                        </div>
+                    }
+                </div>
+                <br />
+                <div class="text-center">
+                    <button type="submit" class="btn btn-outline-primary">Guardar</button>
+                    <a href="@Url.Action("GetAll", "Candidato")" class="btn btn-outline-danger">Regresar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+    <symbol id="check-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+    </symbol>
+    <symbol id="info-fill" viewBox="0 0 16 16">
+        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+    </symbol>
+    <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
+        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+    </symbol>
+</svg>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<script src="~/Scripts/Candidato/ValidacionesForm.js"></script>

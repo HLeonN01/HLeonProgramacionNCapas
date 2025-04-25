@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="28d287f0ecea44658813323ce04bbad4" Name="Diagram1" ZoomLevel="63">
+      <Diagram DiagramId="28d287f0ecea44658813323ce04bbad4" Name="Diagram1" ZoomLevel="34">
         <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.rol" Width="1.5" PointX="1.375" PointY="6.125" />
         <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Colonia" Width="1.5" PointX="7.875" PointY="1.125" />
         <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Direccion" Width="1.5" PointX="10.125" PointY="1.625" />
@@ -16,6 +16,17 @@
         <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.usuario" Width="1.5" PointX="1" PointY="1.25" />
         <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Direccion__IdUsu__4AB81AF0" />
         <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK_UsuarioIdRol" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.BolsaTrabajo" Width="1.5" PointX="17.625" PointY="8.375" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Candidato" Width="1.5" PointX="12.375" PointY="8" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Carrera" Width="1.5" PointX="6.75" PointY="6" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.EstatusVacante" Width="1.5" PointX="3.625" PointY="9.375" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Universidad" Width="1.5" PointX="17.25" PointY="11.5" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Vacante" Width="1.5" PointX="6.75" PointY="8.875" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Candidato__IdBol__02084FDA" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Candidato__IdCar__01142BA1" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Candidato__IdUni__00200768" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Candidato__IdVac__02FC7413" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Vacante__IdEstat__7B5B524B" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

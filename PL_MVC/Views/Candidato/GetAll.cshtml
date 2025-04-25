@@ -1,0 +1,231 @@
+﻿@model ML.Candidato
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    #cardMention {
+        margin-top: 20px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        background-color: #cad7ff;
+        padding: 20px;
+        opacity: 100%;
+        width: 100%;
+        height: 65%;
+    }
+
+    #cardCandidato {
+        margin-top: 20px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        background-color: #e2e2e20d;
+        padding: 50px;
+        opacity: 75%;
+    }
+
+    .data {
+        border-radius: 25px;
+        border: 2px solid #0094ff;
+        background: #cad7ff;
+        padding: 5px;
+        width: 100%;
+        height: 5%;
+    }
+
+    
+    p {
+        font-size: 10px;
+    }
+
+    .icon-300 {
+        font-size: 35px;
+    }
+</style>
+
+<h2>Búsqueda de candidatos</h2>
+<br />
+@using (Html.BeginForm("GetAll", "Candidato", FormMethod.Post))
+{
+    <div>
+        <h5>Lista de vacantes</h5>
+        <br />
+        <div class="input-group">
+            @Html.DropDownListFor(model => model.Vacante.IdVacante, new SelectList(Model.Vacante.Vacantes, "IdVacante", "Nombre"), "Seleccione la vacante", new { @class = "form-control text-center", })
+            <button class="btn btn-outline-info" type="submit"> <i class="bi bi-search"></i></button>
+        </div>
+        <div class="text-end">
+            <a href="@Url.Action("Form", "Candidato")" class="btn btn-outline-success">
+                <i class="bi bi-plus-lg"></i>
+            </a>
+        </div>
+    </div>
+}
+@if (Model.Candidatos.Count > 0)
+{
+    <div class="container">
+        @*<table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre Completo</th>
+                    <th scope="col">Edad</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Foto</th>
+                    <th scope="col">Curriculum</th>
+                    <th scope="col">Universidad</th>
+                    <th scope="col">Carrera</th>
+                    <th scope="col">Bolsa de trabajo</th>
+                    <th scope="col">Vacante</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ML.Candidato candidato in Model.Candidatos)
+                {
+                    <tr>
+                        <td>@candidato.Nombre @candidato.ApellidoPaterno @candidato.ApellidoMaterno</td>
+                        <td>@candidato.Edad</td>
+                        <td>@candidato.Correo</td>
+                        <td>@candidato.Telefono</td>
+                        <td>@candidato.Direccion</td>
+                        <td class="text-center">
+                            @if (candidato.Foto != null && candidato.Foto.Length > 0)
+                            {
+                                <img src="data:image/*;base64,@(candidato.Foto)" width="80" height="80" />
+                            }
+                            else
+                            {
+                                <img class="center" id="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdnWgZDAdXZemvgse9Ky3sguQEMSeVUkxkcsk_ZFvu9uLsbaEAjdfBLamh7giYmG6vWZs&usqp=CAU" max-width="80" height="80">
+                            }
+                        </td>
+                        <td>
+                            <a class="btn btn-outline-secondary" href="@Url.Action("DonwloadFile", "Candidato", new {IdCandidato = @candidato.IdCandidato})">
+                                <i class="bi bi-download"></i>
+                            </a>
+                        </td>
+                        <td>@candidato.Universidad.Nombre</td>
+                        <td>@candidato.Carrera.Nombre</td>
+                        <td>@candidato.BolsaTrabajo.Nombre</td>
+                        <td>@candidato.Vacante.Nombre</td>
+                        <td>
+                            <a href="@Url.Action("Form", "Candidato", new {IdCandidato = @candidato.IdCandidato})" class="btn btn-outline-warning">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                            <a href="@Url.Action("Delete", "Candidato", new {IdCandidato = @candidato.IdCandidato})" class="btn btn-outline-danger" onclick="return confirm('Esta seguro de liminar el registro?')">
+                                <i class="bi bi-x-circle"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>*@
+        @if (Model.Candidatos.Count > 0)
+        {
+            <br />
+            <div class="container-fluid">
+             <div class="row">
+                 <div class="row padding">
+
+            @foreach (ML.Candidato candidato in Model.Candidatos)
+            {
+                <div class="col-4">
+                   <div class="card" style="height: auto;" id="cardCandidato">
+                       @if (candidato.Foto != null && candidato.Foto.Length > 0)
+                       {
+                           <div class="text-center">
+                               <img src="data:image/*;base64,@(candidato.Foto)" width="80" height="80" />
+                           </div>
+                       }
+                       else
+                       {
+                           <div class="text-center">
+                               <img class="center" id="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdnWgZDAdXZemvgse9Ky3sguQEMSeVUkxkcsk_ZFvu9uLsbaEAjdfBLamh7giYmG6vWZs&usqp=CAU" max-width="80" height="80">
+                           </div>
+                       }
+                       <div class="text-center">
+                           <strong>
+                               @candidato.Nombre @candidato.ApellidoPaterno @candidato.ApellidoMaterno
+                           </strong>
+                       </div>
+                           <div class="card-body" style="max-width: 100%">
+                               <br />
+                               <div style="justify-content: start">
+                                   <p class="data"><strong> Edad: @candidato.Edad</strong></p>
+                                   <p class="data"><strong> Correo: @candidato.Correo</strong></p>
+                                   <p class="data"><strong> Teléfono: @candidato.Telefono</strong></p>
+                                   <p class="data"><strong> Dirección: @candidato.Direccion</strong></p>
+                                   <p class="data"><strong> Universidad: @candidato.Universidad.Nombre, @candidato.Carrera.Nombre</strong></p>
+                               </div>
+                               <div class="text-center">
+                                   <a href="@Url.Action("Form", "Candidato", new {IdCandidato = @candidato.IdCandidato})" class="btn btn-outline-warning">
+                                       <i class="bi bi-pencil-square"></i>
+                                   </a>
+                                   <a href="@Url.Action("Delete", "Candidato", new {IdCandidato = @candidato.IdCandidato})" class="btn btn-outline-danger" onclick="return confirm('Esta seguro de liminar el registro?')">
+                                       <i class="bi bi-x-circle"></i>
+                                   </a>
+                               </div>
+                               <div class="text-center">
+                                   @if (candidato.Curriculum != "")
+                                   {
+                                       <div class="justify-content-end">
+                                           <a href="@Url.Action("DonwloadFile", "Candidato", new {IdCandidato = @candidato.IdCandidato})">
+                                               <i class="bi bi-filetype-pdf icon-300" style="color:red"></i>
+                                           </a>
+                                       </div>
+                                   }
+                                   else
+                                   {
+                                       <div class="justify-content-end">
+                                           <a>
+                                               <i class="bi bi-filetype-pdf icon-300" style="color:red">
+                                               </i>
+                                               <label id="sinCV" style="color:red; font-size:12px">Sin curriculum!</label>
+                                           </a>
+                                       </div>
+                                   }
+                               </div>
+                           </div>
+                   </div>
+               </div>
+            }
+                 </div>
+              </div>
+            </div>
+        }
+        
+    </div>
+}
+else
+{
+    <hr />
+    <div class="container">
+        <div class="container">
+            <div class="card mx-auto" style="max-width: 100%;" id="cardMention">
+                <div class="card-body">
+                    <div class="alert d-flex align-items-center" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+                        <div>
+                            Para encontrar candidatos, debe realizar una búsqueda!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+<script src="~/Scripts/jquery-3.7.0.js"></script>
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+    <symbol id="check-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+    </symbol>
+    <symbol id="info-fill" viewBox="0 0 16 16">
+        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+    </symbol>
+    <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
+        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+    </symbol>
+</svg>
+
