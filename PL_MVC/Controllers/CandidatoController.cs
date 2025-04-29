@@ -72,21 +72,31 @@ namespace PL_MVC.Controllers
         [HttpPost]
         public ActionResult Form(ML.Candidato candidato)
         {
-            HttpPostedFileBase foto = Request.Files["Foto"];
-            HttpPostedFileBase file = Request.Files["Curriculum"];
-            if (foto != null)
+            HttpPostedFileBase foto = Request.Files["FotoCont"];
+            HttpPostedFileBase file = Request.Files["CurriculumCont"];
+
+            if (foto != null && foto.ContentLength > 0)
             {
                 candidato.FotoArray = ConvertirAArrayBytes(foto);
             }
-            if (file != null)
+            else if (!string.IsNullOrEmpty(Request["FotoBase64"]))
+            {
+                candidato.FotoArray = Convert.FromBase64String(Request["FotoBase64"]);
+            }
+
+            if (file != null && file.ContentLength > 0)
             {
                 candidato.CurriculumArray = ConvertirAArrayBytes(file);
+            }
+            else if (!string.IsNullOrEmpty(Request["CurriculumBase64"]))
+            {
+                candidato.CurriculumArray = Convert.FromBase64String(Request["CurriculumBase64"]);
             }
 
             if (ModelState.IsValid)
             {
                 if (candidato.IdCandidato == 0)
-                {
+                { 
                     ML.Result addResult = BL.Candidato.Add(candidato);
                 }
                 else

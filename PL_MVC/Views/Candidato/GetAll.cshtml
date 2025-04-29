@@ -16,29 +16,25 @@
     }
 
     #cardCandidato {
-        margin-top: 20px;
         box-shadow: 0 0 10px rgb(0, 0, 0);
         background-color: #e2e2e20d;
-        padding: 50px;
+        padding: 10px;
         opacity: 75%;
     }
 
     .data {
-        border-radius: 25px;
-        border: 2px solid #0094ff;
-        background: #cad7ff;
-        padding: 5px;
-        width: 100%;
-        height: 5%;
+        border-radius: 80px;
+        border: 3px solid #808080;
+        background: #fff2f2;
     }
 
     
     p {
-        font-size: 10px;
+        font-size: 12.5px;
     }
 
     .icon-300 {
-        font-size: 35px;
+        font-size: 30px;
     }
 </style>
 
@@ -130,7 +126,12 @@
             @foreach (ML.Candidato candidato in Model.Candidatos)
             {
                 <div class="col-4">
-                   <div class="card" style="height: auto;" id="cardCandidato">
+                   <div class="card" style="height: auto; display:flex" id="cardCandidato">
+                       <div class="text-end" style="justify-content: end">
+                           <a href="@Url.Action("Delete", "Candidato", new {IdCandidato = @candidato.IdCandidato})" class="btn btn-outline-danger" onclick="return confirm('Esta seguro de liminar el registro?')">
+                               <i class="bi bi-x-circle"></i>
+                           </a>
+                       </div>
                        @if (candidato.Foto != null && candidato.Foto.Length > 0)
                        {
                            <div class="text-center">
@@ -148,44 +149,47 @@
                                @candidato.Nombre @candidato.ApellidoPaterno @candidato.ApellidoMaterno
                            </strong>
                        </div>
-                           <div class="card-body" style="max-width: 100%">
-                               <br />
-                               <div style="justify-content: start">
-                                   <p class="data"><strong> Edad: @candidato.Edad</strong></p>
-                                   <p class="data"><strong> Correo: @candidato.Correo</strong></p>
-                                   <p class="data"><strong> Teléfono: @candidato.Telefono</strong></p>
-                                   <p class="data"><strong> Dirección: @candidato.Direccion</strong></p>
-                                   <p class="data"><strong> Universidad: @candidato.Universidad.Nombre, @candidato.Carrera.Nombre</strong></p>
-                               </div>
-                               <div class="text-center">
-                                   <a href="@Url.Action("Form", "Candidato", new {IdCandidato = @candidato.IdCandidato})" class="btn btn-outline-warning">
-                                       <i class="bi bi-pencil-square"></i>
-                                   </a>
-                                   <a href="@Url.Action("Delete", "Candidato", new {IdCandidato = @candidato.IdCandidato})" class="btn btn-outline-danger" onclick="return confirm('Esta seguro de liminar el registro?')">
-                                       <i class="bi bi-x-circle"></i>
-                                   </a>
-                               </div>
-                               <div class="text-center">
-                                   @if (candidato.Curriculum != "")
-                                   {
-                                       <div class="justify-content-end">
-                                           <a href="@Url.Action("DonwloadFile", "Candidato", new {IdCandidato = @candidato.IdCandidato})">
-                                               <i class="bi bi-filetype-pdf icon-300" style="color:red"></i>
-                                           </a>
-                                       </div>
-                                   }
-                                   else
-                                   {
-                                       <div class="justify-content-end">
-                                           <a>
-                                               <i class="bi bi-filetype-pdf icon-300" style="color:red">
-                                               </i>
-                                               <label id="sinCV" style="color:red; font-size:12px">Sin curriculum!</label>
-                                           </a>
-                                       </div>
-                                   }
-                               </div>
+                       <div class="card-body" style="max-width: 100%">
+                           <br />
+                           <div style="justify-content: start">
+                               <p class="data"><strong> Edad: @candidato.Edad</strong></p>
                            </div>
+                           <div style="justify-content: start">
+                               <p class="data"><strong> Correo: @candidato.Correo</strong></p>
+                           </div>
+                           <div style="justify-content: start">
+                               <p class="data"><strong> Teléfono: @candidato.Telefono</strong></p>
+                           </div>
+                           <div style="justify-content: start">
+                               <p class="data"><strong> Dirección: @candidato.Direccion</strong></p>
+                           </div>
+                           <div style="justify-content: start">
+                               <p class="data"><strong> Universidad: @candidato.Universidad.Nombre, @candidato.Carrera.Nombre</strong></p>
+                           </div>
+                           <div style="display: flex; justify-content: space-between">
+                               <a href="@Url.Action("Form", "Candidato", new {IdCandidato = @candidato.IdCandidato})" style="height: 30%" class="btn btn-warning">
+                                   <i class="bi bi-pencil-square"></i>
+                               </a>
+                               @if (candidato.Curriculum != "")
+                               {
+                                   <div>
+                                       <a href="@Url.Action("DonwloadFile", "Candidato", new {IdCandidato = @candidato.IdCandidato})">
+                                           <i class="bi bi-filetype-pdf icon-300" style="color:red"></i>
+                                       </a>
+                                   </div>
+                               }
+                               else
+                               {
+                                   <div>
+                                       <a>
+                                           <i class="bi bi-filetype-pdf icon-300" style="color:red">
+                                           </i>
+                                           <label id="sinCV" style="color:red; font-size:12px">Sin curriculum!</label>
+                                       </a>
+                                   </div>
+                               }
+                           </div>
+                       </div>
                    </div>
                </div>
             }

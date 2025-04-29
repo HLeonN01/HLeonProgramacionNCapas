@@ -110,6 +110,14 @@ namespace BL
                         {
                             candidato.Foto = Convert.ToBase64String(candidatos.Foto);
                         }
+                        if (candidatos.Foto == null)
+                        {
+                            candidato.FotoArray = new byte[0];
+                        }
+                        else
+                        {
+                            candidato.FotoArray = candidatos.Foto;
+                        }
                         if (candidatos.Curriculum == null)
                         {
                             candidato.CurriculumArray = new byte[0];

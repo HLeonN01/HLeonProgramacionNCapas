@@ -46,13 +46,13 @@ else if (Model.IdCandidato > 0)
 }
 
 <div class="text-center">
-    @if(Model.Foto == "")
+    @if(Model.Foto == null || Model.Foto == "")
     {
         <img class="center" id="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdnWgZDAdXZemvgse9Ky3sguQEMSeVUkxkcsk_ZFvu9uLsbaEAjdfBLamh7giYmG6vWZs&usqp=CAU" max-width="100" height="100">
     }
     else
     {
-        <img src="data:image/*;base64,@(Model.Foto)" width="100" height="100" />
+        <img src="data:image/*;base64,@Convert.ToBase64String(Model.FotoArray)" width="100" height="100" />
     }
 </div>
 
@@ -62,6 +62,8 @@ else if (Model.IdCandidato > 0)
         <div class="card mx-auto" style="max-width: 70%;">
             <div class="card-body">
                 @Html.HiddenFor(model => model.IdCandidato)
+                @Html.Hidden("FotoBase64", Model.Foto != null ? Convert.ToBase64String(Model.FotoArray) : "")
+                @Html.Hidden("CurriculumBase64", Model.Curriculum != null ? Convert.ToBase64String(Model.CurriculumArray) : "")
                 <div class="row">
                     <div class="col-md-4 mb-3">
                         <label class="form-label">@Html.LabelFor(model => model.Nombre)</label>
@@ -72,7 +74,7 @@ else if (Model.IdCandidato > 0)
                     <div class="col-md-4 mb-3">
                         <label class="form-label">@Html.LabelFor(model => model.ApellidoPaterno)</label>
                         @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control", @type = "text", @onkeypress = "SoloLetras(event)" })
-                        @Html.ValidationMessageFor(model => model.ApellidoPaterno, "", new { @class = "text-danger"})
+                        @Html.ValidationMessageFor(model => model.ApellidoPaterno, "", new { @class = "text-danger" })
                         <span style="color:red" class="error"></span>
                     </div>
                     <div class="col-md-4 mb-3">
@@ -107,19 +109,18 @@ else if (Model.IdCandidato > 0)
                     </div>
                     <div class="col-md-4 mb-3">
                         <label class="form-label">@Html.LabelFor(model => model.Foto)</label>
-                        @*@Html.TextBoxFor(model => model.Foto, new { @class = "form-control", @type = "file" })*@
-                        <input type="file" class="form-control" id="Foto" accept=".png" name="Foto" onchange="ValidarImagen(), ValidarTamanio(this), VisualizarImagen(this)"/>
+                        <input type="file" class="form-control" id="Foto" accept=".png" name="FotoCont" onchange="ValidarImagen(), ValidarTamanio(this), VisualizarImagen(this)" />
                         <div class="text-center">
                             @*<button class="btn btn-outline-danger" type="button" onclick="eliminarImagenPrevizualizada()">
-                                <i class="bi bi-file-x"></i>
-                            </button>*@
+                        <i class="bi bi-file-x"></i>
+                    </button>*@
                             <p><a class="link-opacity-100-hover text-danger" role="button" onclick="eliminarImagenPrevizualizada()">Eliminar selección</a></p>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3">
                         <label class="form-label">@Html.LabelFor(model => model.Curriculum)</label>
                         @*@Html.TextBoxFor(model => model.Curriculum, new { @class = "form-control", @type = "file" })*@
-                        <input type="file" class="form-control" id="Curriculum" name="Curriculum" accept=".pdf" onchange="ValidarCurriculum(), ValidarTamCV(this)"/>
+                        <input type="file" class="form-control" id="Curriculum" name="CurriculumCont" accept=".pdf" onchange="ValidarCurriculum(), ValidarTamCV(this)" />
                         <div class="text-center">
                             <p><a class="link-opacity-100-hover text-danger" role="button" onclick="eliminarCurriculum()">Eliminar selección</a></p>
                         </div>
