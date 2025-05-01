@@ -219,6 +219,7 @@
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CandidatoController.cs" />
+    <Compile Include="Controllers\CitaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JavaScriptController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -457,6 +458,8 @@
     <Content Include="Views\JavaScript\Index.cshtml" />
     <Content Include="Views\Candidato\GetAll.cshtml" />
     <Content Include="Views\Candidato\Form.cshtml" />
+    <Content Include="Views\Cita\GetAll.cshtml" />
+    <Content Include="Views\Cita\Form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

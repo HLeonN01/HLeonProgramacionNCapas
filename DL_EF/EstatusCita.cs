@@ -12,33 +12,17 @@ namespace DL_EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Candidato
+    public partial class EstatusCita
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Candidato()
+        public EstatusCita()
         {
             this.Citas = new HashSet<Cita>();
         }
     
-        public int IdCandidato { get; set; }
+        public byte IdEstatusCita { get; set; }
         public string Nombre { get; set; }
-        public string ApellidoPaterno { get; set; }
-        public string ApellidoMaterno { get; set; }
-        public string Edad { get; set; }
-        public string Correo { get; set; }
-        public string Telefono { get; set; }
-        public string Direccion { get; set; }
-        public byte[] Foto { get; set; }
-        public byte[] Curriculum { get; set; }
-        public int IdUniversidad { get; set; }
-        public int IdCarrera { get; set; }
-        public int IdBolsaTrabajo { get; set; }
-        public int IdVacante { get; set; }
     
-        public virtual BolsaTrabajo BolsaTrabajo { get; set; }
-        public virtual Carrera Carrera { get; set; }
-        public virtual Universidad Universidad { get; set; }
-        public virtual Vacante Vacante { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cita> Citas { get; set; }
     }

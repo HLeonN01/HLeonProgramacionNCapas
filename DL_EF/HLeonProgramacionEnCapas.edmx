@@ -38,6 +38,17 @@
           <Property Name="IdCarrera" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="500" Nullable="false" />
         </EntityType>
+        <EntityType Name="Cita">
+          <Key>
+            <PropertyRef Name="IdCita" />
+          </Key>
+          <Property Name="IdCita" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaHora" Type="datetime" Nullable="false" />
+          <Property Name="IdPiso" Type="tinyint" Nullable="false" />
+          <Property Name="IdCandidato" Type="int" Nullable="false" />
+          <Property Name="IdEstatusCita" Type="tinyint" Nullable="false" />
+          <Property Name="Url" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Colonia">
           <Key>
             <PropertyRef Name="IdColonia" />
@@ -65,6 +76,13 @@
           <Property Name="IdEstado" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="EstatusCita">
+          <Key>
+            <PropertyRef Name="IdEstatusCita" />
+          </Key>
+          <Property Name="IdEstatusCita" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="EstatusVacante">
           <Key>
             <PropertyRef Name="IdEstatusVacante" />
@@ -79,6 +97,13 @@
           <Property Name="IdMunicipio" Type="int" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IdEstado" Type="int" />
+        </EntityType>
+        <EntityType Name="Piso">
+          <Key>
+            <PropertyRef Name="IdPiso" />
+          </Key>
+          <Property Name="IdPiso" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="rol">
           <Key>
@@ -170,6 +195,42 @@
             </Principal>
             <Dependent Role="Candidato">
               <PropertyRef Name="IdVacante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cita__IdCandidat__09A971A2">
+          <End Role="Candidato" Type="Self.Candidato" Multiplicity="1" />
+          <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidato">
+              <PropertyRef Name="IdCandidato" />
+            </Principal>
+            <Dependent Role="Cita">
+              <PropertyRef Name="IdCandidato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cita__IdEstatusC__0A9D95DB">
+          <End Role="EstatusCita" Type="Self.EstatusCita" Multiplicity="1" />
+          <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstatusCita">
+              <PropertyRef Name="IdEstatusCita" />
+            </Principal>
+            <Dependent Role="Cita">
+              <PropertyRef Name="IdEstatusCita" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cita__IdPiso__08B54D69">
+          <End Role="Piso" Type="Self.Piso" Multiplicity="1" />
+          <End Role="Cita" Type="Self.Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Piso">
+              <PropertyRef Name="IdPiso" />
+            </Principal>
+            <Dependent Role="Cita">
+              <PropertyRef Name="IdPiso" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -444,11 +505,14 @@
           <EntitySet Name="BolsaTrabajo" EntityType="Self.BolsaTrabajo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Candidato" EntityType="Self.Candidato" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Carrera" EntityType="Self.Carrera" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cita" EntityType="Self.Cita" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Colonia" EntityType="Self.Colonia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Direccion" EntityType="Self.Direccion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EstatusCita" EntityType="Self.EstatusCita" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EstatusVacante" EntityType="Self.EstatusVacante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Municipio" EntityType="Self.Municipio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Piso" EntityType="Self.Piso" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="rol" EntityType="Self.rol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Universidad" EntityType="Self.Universidad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="dbo" store:Type="Tables" />
@@ -468,6 +532,18 @@
           <AssociationSet Name="FK__Candidato__IdVac__02FC7413" Association="Self.FK__Candidato__IdVac__02FC7413">
             <End Role="Vacante" EntitySet="Vacante" />
             <End Role="Candidato" EntitySet="Candidato" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cita__IdCandidat__09A971A2" Association="Self.FK__Cita__IdCandidat__09A971A2">
+            <End Role="Candidato" EntitySet="Candidato" />
+            <End Role="Cita" EntitySet="Cita" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cita__IdEstatusC__0A9D95DB" Association="Self.FK__Cita__IdEstatusC__0A9D95DB">
+            <End Role="EstatusCita" EntitySet="EstatusCita" />
+            <End Role="Cita" EntitySet="Cita" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cita__IdPiso__08B54D69" Association="Self.FK__Cita__IdPiso__08B54D69">
+            <End Role="Piso" EntitySet="Piso" />
+            <End Role="Cita" EntitySet="Cita" />
           </AssociationSet>
           <AssociationSet Name="FK__Colonia__IdMunic__46E78A0C" Association="Self.FK__Colonia__IdMunic__46E78A0C">
             <End Role="Municipio" EntitySet="Municipio" />
@@ -744,8 +820,23 @@
           <Parameter Name="IdCandidato" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CandidatoGetAll" ReturnType="Collection(HLeonProgramacionEnCapasModel.CandidatoGetAll_Result)">
-            <Parameter Name="IdVacante" Mode="In" Type="Int32" />
+          <Parameter Name="IdVacante" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Citas" EntityType="HLeonProgramacionEnCapasModel.Cita" />
+          <EntitySet Name="EstatusCitas" EntityType="HLeonProgramacionEnCapasModel.EstatusCita" />
+          <EntitySet Name="Pisoes" EntityType="HLeonProgramacionEnCapasModel.Piso" />
+          <AssociationSet Name="FK__Cita__IdCandidat__09A971A2" Association="HLeonProgramacionEnCapasModel.FK__Cita__IdCandidat__09A971A2">
+            <End Role="Candidato" EntitySet="Candidatoes" />
+            <End Role="Cita" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cita__IdEstatusC__0A9D95DB" Association="HLeonProgramacionEnCapasModel.FK__Cita__IdEstatusC__0A9D95DB">
+            <End Role="EstatusCita" EntitySet="EstatusCitas" />
+            <End Role="Cita" EntitySet="Citas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cita__IdPiso__08B54D69" Association="HLeonProgramacionEnCapasModel.FK__Cita__IdPiso__08B54D69">
+            <End Role="Piso" EntitySet="Pisoes" />
+            <End Role="Cita" EntitySet="Citas" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="rol">
           <Key>
@@ -1018,6 +1109,7 @@
           <NavigationProperty Name="Carrera" Relationship="HLeonProgramacionEnCapasModel.FK__Candidato__IdCar__01142BA1" FromRole="Candidato" ToRole="Carrera" />
           <NavigationProperty Name="Universidad" Relationship="HLeonProgramacionEnCapasModel.FK__Candidato__IdUni__00200768" FromRole="Candidato" ToRole="Universidad" />
           <NavigationProperty Name="Vacante" Relationship="HLeonProgramacionEnCapasModel.FK__Candidato__IdVac__02FC7413" FromRole="Candidato" ToRole="Vacante" />
+          <NavigationProperty Name="Citas" Relationship="HLeonProgramacionEnCapasModel.FK__Cita__IdCandidat__09A971A2" FromRole="Candidato" ToRole="Cita" />
         </EntityType>
         <EntityType Name="Carrera">
           <Key>
@@ -1172,6 +1264,72 @@
           <Property Type="Int32" Name="IdVacante" Nullable="false" />
           <Property Type="String" Name="NombreVacante" Nullable="false" MaxLength="500" />
         </ComplexType>
+        <EntityType Name="Cita">
+          <Key>
+            <PropertyRef Name="IdCita" />
+          </Key>
+          <Property Name="IdCita" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaHora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdPiso" Type="Byte" Nullable="false" />
+          <Property Name="IdCandidato" Type="Int32" Nullable="false" />
+          <Property Name="IdEstatusCita" Type="Byte" Nullable="false" />
+          <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Candidato" Relationship="HLeonProgramacionEnCapasModel.FK__Cita__IdCandidat__09A971A2" FromRole="Cita" ToRole="Candidato" />
+          <NavigationProperty Name="EstatusCita" Relationship="HLeonProgramacionEnCapasModel.FK__Cita__IdEstatusC__0A9D95DB" FromRole="Cita" ToRole="EstatusCita" />
+          <NavigationProperty Name="Piso" Relationship="HLeonProgramacionEnCapasModel.FK__Cita__IdPiso__08B54D69" FromRole="Cita" ToRole="Piso" />
+        </EntityType>
+        <EntityType Name="EstatusCita">
+          <Key>
+            <PropertyRef Name="IdEstatusCita" />
+          </Key>
+          <Property Name="IdEstatusCita" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Citas" Relationship="HLeonProgramacionEnCapasModel.FK__Cita__IdEstatusC__0A9D95DB" FromRole="EstatusCita" ToRole="Cita" />
+        </EntityType>
+        <EntityType Name="Piso">
+          <Key>
+            <PropertyRef Name="IdPiso" />
+          </Key>
+          <Property Name="IdPiso" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Citas" Relationship="HLeonProgramacionEnCapasModel.FK__Cita__IdPiso__08B54D69" FromRole="Piso" ToRole="Cita" />
+        </EntityType>
+        <Association Name="FK__Cita__IdCandidat__09A971A2">
+          <End Type="HLeonProgramacionEnCapasModel.Candidato" Role="Candidato" Multiplicity="1" />
+          <End Type="HLeonProgramacionEnCapasModel.Cita" Role="Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidato">
+              <PropertyRef Name="IdCandidato" />
+            </Principal>
+            <Dependent Role="Cita">
+              <PropertyRef Name="IdCandidato" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cita__IdEstatusC__0A9D95DB">
+          <End Type="HLeonProgramacionEnCapasModel.EstatusCita" Role="EstatusCita" Multiplicity="1" />
+          <End Type="HLeonProgramacionEnCapasModel.Cita" Role="Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstatusCita">
+              <PropertyRef Name="IdEstatusCita" />
+            </Principal>
+            <Dependent Role="Cita">
+              <PropertyRef Name="IdEstatusCita" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cita__IdPiso__08B54D69">
+          <End Type="HLeonProgramacionEnCapasModel.Piso" Role="Piso" Multiplicity="1" />
+          <End Type="HLeonProgramacionEnCapasModel.Cita" Role="Cita" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Piso">
+              <PropertyRef Name="IdPiso" />
+            </Principal>
+            <Dependent Role="Cita">
+              <PropertyRef Name="IdPiso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1554,6 +1712,34 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Citas">
+            <EntityTypeMapping TypeName="HLeonProgramacionEnCapasModel.Cita">
+              <MappingFragment StoreEntitySet="Cita">
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="IdEstatusCita" ColumnName="IdEstatusCita" />
+                <ScalarProperty Name="IdCandidato" ColumnName="IdCandidato" />
+                <ScalarProperty Name="IdPiso" ColumnName="IdPiso" />
+                <ScalarProperty Name="FechaHora" ColumnName="FechaHora" />
+                <ScalarProperty Name="IdCita" ColumnName="IdCita" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstatusCitas">
+            <EntityTypeMapping TypeName="HLeonProgramacionEnCapasModel.EstatusCita">
+              <MappingFragment StoreEntitySet="EstatusCita">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdEstatusCita" ColumnName="IdEstatusCita" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pisoes">
+            <EntityTypeMapping TypeName="HLeonProgramacionEnCapasModel.Piso">
+              <MappingFragment StoreEntitySet="Piso">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdPiso" ColumnName="IdPiso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

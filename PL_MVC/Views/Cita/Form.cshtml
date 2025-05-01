@@ -1,0 +1,85 @@
+﻿@model ML.Cita
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    #cardCandidato {
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        background-color: #e2e2e20d;
+        padding: 10px;
+        opacity: 75%;
+    }
+
+    p {
+        font-size: 10.5px;
+    }
+
+    .data {
+        border-radius: 80px;
+        border: 3px solid #808080;
+        background: #fff2f2;
+    }
+    #boxCitas{
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
+
+@using (Html.BeginForm("Form", "Cita", FormMethod.Post))
+{
+    <div class="justify-content-start">
+        <button class="btn btn-outline-info">Presencial</button>
+        <button class="btn btn-outline-info">Remoto</button>
+        <hr />
+    </div>
+    <div id="boxCitas">
+        <div class="col-4 justify-content-stR">
+            <div class="card" style="height: auto; display:flex" id="cardCandidato">
+                <div class="text-center" style="justify-content: end">
+                    @if (Model.Candidato.Foto != null && Model.Candidato.Foto.Length > 0)
+                    {
+                        <img src="data:image/*;base64,@(Model.Candidato.Foto)" width="80" height="80" />
+                    }
+                    else
+                    {
+                        <img class="center" id="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdnWgZDAdXZemvgse9Ky3sguQEMSeVUkxkcsk_ZFvu9uLsbaEAjdfBLamh7giYmG6vWZs&usqp=CAU" max-width="80" height="80">
+                    }
+                    <div class="card-body">
+                        @if (Model.Candidato != null)
+                        {
+                            <div class="text-center">
+                                <h5>
+                                    <strong>@Model.Candidato.Nombre @Model.Candidato.ApellidoPaterno @Model.Candidato.ApellidoMaterno</strong>
+                                </h5>
+                            </div>
+                            <br />
+                            <hr />
+                            <div>
+                                <p class="data">
+                                    <strong>
+                                        @Model.Candidato.Correo
+                                    </strong>
+                                </p>
+                                <p class="data">
+                                    <strong>
+                                        @Model.Candidato.Telefono
+                                    </strong>
+                                </p>
+                                <p class="data">
+                                    <strong>
+                                        @Model.Candidato.Vacante.Nombre
+                                    </strong>
+                                </p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            Agendar cita
+        </div>
+    </div>
+}

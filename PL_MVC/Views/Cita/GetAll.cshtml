@@ -1,0 +1,146 @@
+﻿@model ML.Cita
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    #cardMention {
+        margin-top: 20px;
+        box-shadow: 0 0 10px rgb(0, 0, 0);
+        background-color: #e93030;
+        padding: 20px;
+        opacity: 100%;
+        width: 100%;
+        height: 65%;
+    }
+    #sinCita {
+        border-radius: 100px;
+        border: 3px solid #f62929;
+        background: #ff8686;
+    }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+@using (Html.BeginForm("GetAll", "Cita", FormMethod.Post))
+{
+    <div class="">
+        <h5>Modulo de citas</h5>
+    </div>
+    <br />
+    <div class="input-group">
+        @Html.DropDownListFor(model => model.Candidato.Vacante.IdVacante, new SelectList(Model.Candidato.Vacante.Vacantes, "IdVacante", "Nombre"), "Seleccione una vacante", new { @class = "form-control text-center" })
+        <button class="btn btn-outline-info" type="submit"> <i class="bi bi-search"></i></button>
+    </div>
+}
+
+@if (Model.Citas.Count > 0)
+{
+    <div class="container">
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Foto</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Edad</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Vacante</th>
+                        <th scope="col">Generar Cita</th>
+                        <th scope="col">Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (ML.Cita cita in Model.Citas)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                @if (@cita.Candidato.Foto != null && @cita.Candidato.Foto.Length > 0)
+                                {
+
+                                    <img src="data:image/*;base64,@(cita.Candidato.Foto)" width="80" height="80" />
+
+                                }
+                                else
+                                {
+
+                                    <img class="center" id="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdnWgZDAdXZemvgse9Ky3sguQEMSeVUkxkcsk_ZFvu9uLsbaEAjdfBLamh7giYmG6vWZs&usqp=CAU" max-width="80" height="80">
+
+                                }
+                            </td>
+                            <td>@cita.Candidato.Nombre @cita.Candidato.ApellidoPaterno @cita.Candidato.ApellidoMaterno</td>
+                            <td>@cita.Candidato.Edad</td>
+                            <td>@cita.Candidato.Correo</td>
+                            <td>@cita.Candidato.Telefono</td>
+                            <td>@cita.Candidato.Vacante.Nombre</td>
+
+                            @if (@cita.IdCita > 0)
+                            {
+                                <td class="text-center">
+                                    <a href="@Url.Action("Form", "Cita", new { IdCandidato = @cita.Candidato.IdCandidato })" class="text-center btn btn-outline-warning">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="@Url.Action("Delete", "Form", new {IdCandidato = @cita.Candidato.IdCandidato})" class="text-center btn btn-outline-danger">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="form-control, text-center">
+                                    <a href="@Url.Action("Form", "Cita", new { IdCandidato = @cita.Candidato.IdCandidato })" class="btn btn-outline-success">
+                                        <i class="bi bi-plus-circle-fill"></i>
+                                    </a>
+                                    <br />
+                                    <label style="color: darkgreen; font-size: 10px">
+                                        Agregar
+                                    </label>
+                                </td>
+                                <td>
+                                    <p id="sinCita" class="text-center">Sin cita</p>
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <hr />
+    <div class="container">
+        <div class="container">
+            <div class="card mx-auto" style="max-width: 100%;" id="cardMention">
+                <div class="card-body">
+                    <div class="alert d-flex align-items-center" role="alert">
+                        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+                        <div>
+                            Para visualizar las citas, debe realizar una búsqueda por vacante!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+<script src="~/Scripts/jquery-3.7.0.js"></script>
+<svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+    <symbol id="check-circle-fill" viewBox="0 0 16 16">
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+    </symbol>
+    <symbol id="info-fill" viewBox="0 0 16 16">
+        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+    </symbol>
+    <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
+        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+    </symbol>
+</svg>
+
+
+

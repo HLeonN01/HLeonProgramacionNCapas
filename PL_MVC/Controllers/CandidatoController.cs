@@ -18,7 +18,8 @@ namespace PL_MVC.Controllers
             ML.Result ddlVacante = BL.Vacante.GetAll();
             if (ddlVacante.Correct)
             {
-                candidato.Vacante.Vacantes = ddlVacante.Objects;
+                candidato.Vacante.Vacantes = ddlVacante.Objects; 
+                
             }
             else
             {
