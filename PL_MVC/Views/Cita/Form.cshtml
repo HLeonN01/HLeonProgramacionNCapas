@@ -105,16 +105,15 @@
                             <div class="col-6" }>
                                 @if (Model.IdCita > 0)
                                 {
+                                    <label>Estatus cita</label>
                                     if (Model.EstatusCita.EstatusCitas != null && Model.EstatusCita.EstatusCitas.Count > 0)
                                     {
-                                        <label>Estatus cita</label>
                                         @Html.DropDownListFor(model => model.EstatusCita.IdEstatusCita, new SelectList(Model.EstatusCita.EstatusCitas, "EstatusCita.IdEstatusCita", "EstatusCita.Nombre"), "Seleccione el estatus de su cita", new { @class = "form-control" })
                                     }
                                 }
                                 else
                                 {
-                                    <label>Estatus cita</label>
-                                    @Html.DropDownListFor(model => model.EstatusCita.IdEstatusCita, new SelectList(Model.EstatusCita.EstatusCitas, "EstatusCita.IdEstatusCita", "EstatusCita.Nombre", 1), new { @class = "form-control", @disabled = "disabled"})
+                                        @Html.DropDownListFor(model => model.EstatusCita.IdEstatusCita, new SelectList(Model.EstatusCita.EstatusCitas, "EstatusCita.IdEstatusCita", "EstatusCita.Nombre"), new { @class = "form-control", @disabled = "disabled" })
                                 }
                             </div>
                         </div>
@@ -142,12 +141,7 @@
 
     $(document).ready(function () {
         $("#UrlText").hide();
-        $("#PisoDDL").show();
-        $("form").submit(function () {
-            if ($("#IdCita").val() == 0) {
-                $("#EstatusCita_IdEstatusCita").val(1);
-            }
-        });
+        $("#PisoDDL").show();        
     });
 
     $("#ButtonRemoto").click(function () {

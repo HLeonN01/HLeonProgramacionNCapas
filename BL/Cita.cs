@@ -343,6 +343,7 @@ namespace BL
                                   select deletes).SingleOrDefault();
                     if (delete != null)
                     {
+                        context.Citas.Remove(delete);
                         int rowAffect = context.SaveChanges();
                         if (rowAffect > 0)
                         {
