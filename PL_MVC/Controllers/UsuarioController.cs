@@ -1,6 +1,7 @@
 ﻿using Antlr.Runtime.Misc;
 using BL;
 using ML;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,6 +16,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using static System.Collections.Specialized.BitVector32;
+using System.Web.UI.WebControls;
+using System.Data.SqlClient;
 
 namespace PL_MVC.Controllers
 {
@@ -639,6 +642,15 @@ namespace PL_MVC.Controllers
         {
             ML.Result result = new ML.Result();
             result.Objects = new List<object>();
+            ReportViewer reportViewer = new ReportViewer();
+            reportViewer.ProcessingMode = ProcessingMode.Local;
+            reportViewer.SizeToReportContent = true;
+            reportViewer.Width = Unit.Percentage(900);
+            reportViewer.Height = Unit.Percentage(900);
+            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Reports\UsuariosReport.rdlc";
+            reportViewer.LocalReport.DataSources.Add(new ReportDataSource("UsuariosDataSet", result.Objects));
+            ViewBag.ReportViewer = reportViewer;
+
             try
             {
                 using (var cliente = new HttpClient())
@@ -653,7 +665,7 @@ namespace PL_MVC.Controllers
                     if (resultServicio.IsSuccessStatusCode)
                     {
                         var readTask = resultServicio.Content.ReadAsAsync<List<object>>();
-                        readTask.Wait();                       
+                        readTask.Wait();
 
                         foreach (var resultItem in readTask.Result)
                         {
@@ -674,6 +686,7 @@ namespace PL_MVC.Controllers
                         usuario.Direccion.Colonia.Municipio.Estado.Estados = estadoDDL.Objects;
                         usuario.Usuarios = result.Objects;
                         return View(usuario);
+
                     }
                 }
             }
@@ -683,8 +696,51 @@ namespace PL_MVC.Controllers
                 result.ErrorMessage = ex.Message;
                 result.Ex = ex;
             }
-            return View();
+            ML.Usuario roles = new ML.Usuario();
+            roles.Rol = new ML.Rol();
+            ML.Result rolddl = BL.Rol.GetAllEF();
+            roles.Rol.Roles = rolddl.Objects;
+            roles.Usuarios = new List<object>();
+            return View(roles);
         }
+
+        //public ActionResult Resportes()
+        //{
+        //    PL_MVC.Reports.UsuariosDataSet usuarios = new PL_MVC.Reports.UsuariosDataSet();
+        //    ReportViewer reportViewer = new ReportViewer();
+
+        //    try
+        //    {
+        //        reportViewer.LocalReport.EnableHyperlinks = true;
+        //        reportViewer.ProcessingMode = ProcessingMode.Local;
+        //        reportViewer.SizeToReportContent = true;
+        //        reportViewer.Width = Unit.Percentage(100);
+        //        reportViewer.Height = Unit.Percentage(100);
+        //        string connectionString = ConfigurationManager.ConnectionStrings["HLeonProgramacionEnCapasEntities"].ConnectionString;
+        //        using (SqlConnection context = new SqlConnection(connectionString))
+        //        {
+        //            context.Open();
+        //            SqlDataAdapter adp = new SqlDataAdapter("EXEC UsuariosGetAll", context);
+        //            adp.Fill(usuarios, usuarios.usuarios.TableName);
+        //        }
+        //        string reportPath = Server.MapPath("~/Reports/UsuariosReport.rdlc");
+        //        if (!System.IO.File.Exists(reportPath))
+        //        {
+        //            throw new Exception("El informe no se encuentra en la ruta especificada");
+        //        }
+
+        //        reportViewer.LocalReport.ReportPath = reportPath;
+        //        reportViewer.LocalReport.DataSources.Add(new ReportDataSource("UsuariosDataSet", usuarios.Tables[0]));
+        //        ViewBag.ReportViewer = reportViewer;
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ViewBag.ReportViewer = ex.Message;
+        //    }
+        //    return View();
+        //}
+
 
         [HttpGet]
         public ActionResult Form(int? IdUsuario)

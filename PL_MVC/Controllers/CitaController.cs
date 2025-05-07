@@ -49,7 +49,8 @@ namespace PL_MVC.Controllers
         {
             ML.Cita cita = new ML.Cita();
             cita.Piso = new ML.Piso();
-            cita.Candidato = new ML.Candidato();
+            cita.EstatusCita = new ML.EstatusCita();
+            cita.Candidato = new ML.Candidato();           
             cita.Candidato.Vacante = new ML.Vacante();
             cita.Candidato.Vacante.EstatusVacante = new ML.EstatusVacante();
             if (IdCandidato != null)
@@ -59,7 +60,30 @@ namespace PL_MVC.Controllers
             }
             ML.Result ddlPisos = BL.Piso.GetAll();
             cita.Piso.Pisos = ddlPisos.Objects;
+            ML.Result resultEstatusCitas = BL.Cita.EstatusCitaGetAll();
+            cita.EstatusCita.EstatusCitas = resultEstatusCitas.Objects;
             return View(cita);
+        }
+
+        [HttpPost]
+        public ActionResult Form(ML.Cita cita)
+        {
+            if (cita.IdCita == 0)
+            {
+                ML.Result add = BL.Cita.Add(cita);
+            }
+            else
+            {
+                ML.Result update = BL.Cita.Update(cita);
+            }
+            return RedirectToAction("GetAll");
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int IdCita)
+        {
+            ML.Result delete = BL.Cita.Delete(IdCita);
+            return RedirectToAction("GetAll");
         }
     }
 }

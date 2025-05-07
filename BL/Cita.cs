@@ -130,7 +130,7 @@ namespace BL
                         }
                         if (query.Citas != null && query.Citas.FechaHora != null)
                         {
-                            cita.FechaHora = query.Citas.FechaHora.ToString();
+                            cita.FechaHora = query.Citas.FechaHora.ToString("MM/dd/yyyy");
                         }
                         else
                         {
@@ -194,6 +194,165 @@ namespace BL
                         }
                         result.Object = cita;
                         return result;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+                result.Ex = ex;
+            }
+            return result;
+        }
+
+        public static ML.Result EstatusCitaGetAll()
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
+                {
+                    var query = (from estatusCitas in context.EstatusCitas
+                                 select estatusCitas).ToList();
+                    if (query != null)
+                    {
+                        result.Objects = new List<object>();
+                        foreach (var estatusCitas in query)
+                        {
+                            ML.Cita cita = new ML.Cita();
+                            cita.EstatusCita = new ML.EstatusCita();
+                            cita.EstatusCita.IdEstatusCita = estatusCitas.IdEstatusCita;
+                            cita.EstatusCita.Nombre = estatusCitas.Nombre;
+                            result.Objects.Add(cita);
+                        }
+                        result.Correct = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+                result.Ex = ex;
+            }
+            return result;
+        }
+
+        public static ML.Result Add(ML.Cita cita)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
+                {
+                    DL_EF.Cita citas = new DL_EF.Cita();
+                    cita.Piso = new ML.Piso();
+                    cita.EstatusCita = new ML.EstatusCita();
+                    citas.FechaHora = DateTime.Parse(cita.FechaHora);
+                    if (cita.Piso.IdPiso == 0)
+                    {
+                        citas.IdPiso = 0;
+                    }
+                    else
+                    {
+                        citas.IdPiso = Convert.ToByte(cita.Piso.IdPiso);
+                    }
+                    if (cita.Url != null)
+                    {
+                        citas.Url = cita.Url;
+                    }
+                    else
+                    {
+                        citas.Url = "";
+                    }
+                    citas.IdCandidato = cita.Candidato.IdCandidato;
+                    citas.IdEstatusCita = Convert.ToByte(cita.EstatusCita.IdEstatusCita);
+                    context.Citas.Add(citas);
+
+                    int rowAffect = context.SaveChanges();
+                    if (rowAffect >0)
+                    {
+                        result.Correct = true;
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                        result.ErrorMessage = "No se pudo agregar";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+                result.Ex = ex;
+            }
+            return result;
+        }
+
+        public static ML.Result Update(ML.Cita cita)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
+                {
+                    var update = (from updates in context.Citas
+                                  where updates.IdCita == cita.IdCita
+                                  select updates).SingleOrDefault();
+                    if (update != null)
+                    {
+                        update.FechaHora = DateTime.Parse(cita.FechaHora);
+                        update.IdPiso = Convert.ToByte(cita.Piso.IdPiso);
+                        update.IdCandidato = cita.Candidato.IdCandidato;
+                        update.IdEstatusCita = Convert.ToByte(cita.EstatusCita.IdEstatusCita);
+                        update.Url = cita.Url;
+
+                        int rowAffects = context.SaveChanges();
+                        if (rowAffects > 0)
+                        {
+                            result.Correct = true;
+                        }
+                        else
+                        {
+                            result.Correct = false;
+                            result.ErrorMessage = "Error al actualizar";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+                result.Ex = ex;
+            }
+            return result;
+        }
+
+        public static ML.Result Delete(int IdCita)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
+                {
+                    var delete = (from deletes in context.Citas
+                                  where deletes.IdCita == IdCita
+                                  select deletes).SingleOrDefault();
+                    if (delete != null)
+                    {
+                        int rowAffect = context.SaveChanges();
+                        if (rowAffect > 0)
+                        {
+                            result.Correct = true;
+                        }                        
+                    }
+                    else
+                    {
+                        result.Correct = false;
+                        result.ErrorMessage = "No se pudo eliminar";
                     }
                 }
             }

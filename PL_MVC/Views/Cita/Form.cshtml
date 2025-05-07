@@ -21,19 +21,21 @@
         border: 3px solid #808080;
         background: #fff2f2;
     }
-    #boxCitas{
+
+    #boxCitas {
         display: flex;
         justify-content: space-between;
     }
 </style>
-
+<div class="justify-content-start">
+    <button class="btn btn-outline-info" id="ButtonPresencial">Presencial</button>
+    <button class="btn btn-outline-info" id="ButtonRemoto">Remoto</button>
+    <hr />
+</div>
 @using (Html.BeginForm("Form", "Cita", FormMethod.Post))
 {
-    <div class="justify-content-start">
-        <button class="btn btn-outline-info">Presencial</button>
-        <button class="btn btn-outline-info">Remoto</button>
-        <hr />
-    </div>
+    @Html.HiddenFor(model => model.Candidato.IdCandidato)
+    @Html.HiddenFor(model => model.IdCita)
     <div id="boxCitas">
         <div class="col-4 justify-content-stR">
             <div class="card" style="height: auto; display:flex" id="cardCandidato">
@@ -79,7 +81,89 @@
             </div>
         </div>
         <div>
-            Agendar cita
+            <div class="container" style="width: 500px">
+                @using (Html.BeginForm("Form", "Cita", FormMethod.Post))
+                {
+                    <div class="row text-center">
+                        <h5>Agendar Entrevista</h5>
+                    </div>
+                    <hr />
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6">
+                                <label>Fecha y Hora</label>
+                                @Html.TextBoxFor(model => Model.FechaHora, new { @type = "text", @id = "datepicker" })
+                            </div>
+                            <div class="col-6" id="UrlText">
+                                <label>URL</label>
+                                @Html.TextBoxFor(model => Model.Url, new { @class = "form-control", @style = "display: block" })
+                            </div>
+                            <div class="col-6" id="PisoDDL">
+                                <label>Piso</label>
+                                @Html.DropDownListFor(model => Model.Piso.IdPiso, new SelectList(Model.Piso.Pisos, "IdPiso", "Nombre", "Seleccione el piso"), new { @class = "form-control" })
+                            </div>
+                            <div class="col-6" }>
+                                @if (Model.IdCita > 0)
+                                {
+                                    if (Model.EstatusCita.EstatusCitas != null && Model.EstatusCita.EstatusCitas.Count > 0)
+                                    {
+                                        <label>Estatus cita</label>
+                                        @Html.DropDownListFor(model => model.EstatusCita.IdEstatusCita, new SelectList(Model.EstatusCita.EstatusCitas, "EstatusCita.IdEstatusCita", "EstatusCita.Nombre"), "Seleccione el estatus de su cita", new { @class = "form-control" })
+                                    }
+                                }
+                                else
+                                {
+                                    <label>Estatus cita</label>
+                                    @Html.DropDownListFor(model => model.EstatusCita.IdEstatusCita, new SelectList(Model.EstatusCita.EstatusCitas, "EstatusCita.IdEstatusCita", "EstatusCita.Nombre", 1), new { @class = "form-control", @disabled = "disabled"})
+                                }
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="text-center">
+                            <button class="btn btn-success">
+                                Agendar Entrevista
+                            </button>
+                            <a href="@Url.Action("GetAll", "Cita")" class="btn btn-danger">
+                                Regresar 
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
         </div>
     </div>
 }
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#UrlText").hide();
+        $("#PisoDDL").show();
+        $("form").submit(function () {
+            if ($("#IdCita").val() == 0) {
+                $("#EstatusCita_IdEstatusCita").val(1);
+            }
+        });
+    });
+
+    $("#ButtonRemoto").click(function () {
+        $("#UrlText").show();
+        $("#PisoDDL").hide();
+        $("#PisoDDL").empty();
+    });
+    $("#ButtonPresencial").click(function () {
+        $("#PisoDDL").show();
+        $("#UrlText").hide();
+        $("#UrlText").empty();
+    });
+
+    $("#datepicker").datepicker({
+        dateFormat: "dd-mm-yy",
+        showAnim: "clip"
+    });
+</script>
+
