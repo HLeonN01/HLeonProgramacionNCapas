@@ -247,8 +247,6 @@ namespace BL
                 using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
                 {
                     DL_EF.Cita citas = new DL_EF.Cita();
-                    cita.Piso = new ML.Piso();
-                    cita.EstatusCita = new ML.EstatusCita();
                     citas.FechaHora = DateTime.Parse(cita.FechaHora);
                     if (cita.Piso.IdPiso == 0)
                     {

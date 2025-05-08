@@ -244,6 +244,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CandidatoController.cs" />
     <Compile Include="Controllers\CitaController.cs" />
+    <Compile Include="Controllers\CorreoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JavaScriptController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -346,6 +347,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Correo\Plantilla.html" />
+    <Content Include="Content\LOGO.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -520,6 +523,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="CargaMasiva\" />
     <Folder Include="CV\" />
+    <Folder Include="Views\Correo\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

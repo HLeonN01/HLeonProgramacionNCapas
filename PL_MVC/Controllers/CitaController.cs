@@ -70,6 +70,8 @@ namespace PL_MVC.Controllers
         {
             if (cita.IdCita == 0)
             {
+                cita.EstatusCita = new ML.EstatusCita();
+                cita.EstatusCita.IdEstatusCita = 1;
                 ML.Result add = BL.Cita.Add(cita);
             }
             else

@@ -48,6 +48,7 @@
                         <th scope="col">Vacante</th>
                         <th scope="col">Generar Cita</th>
                         <th scope="col">Eliminar</th>
+                        <th scope="col">Enviar Correo</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -102,6 +103,9 @@
                                     <p id="sinCita" class="text-center">Sin cita</p>
                                 </td>
                             }
+                            <td class="form-control, text-center">
+                                <a href="@Url.Action("Enviar", "Correo")" class="btn btn-info">Enviar</a>
+                            </td>
                         </tr>
                     }
                 </tbody>

@@ -96,24 +96,24 @@
                             </div>
                             <div class="col-6" id="UrlText">
                                 <label>URL</label>
-                                @Html.TextBoxFor(model => Model.Url, new { @class = "form-control", @style = "display: block" })
+                                @Html.TextBoxFor(model => Model.Url, new { @class = "form-control" })
                             </div>
                             <div class="col-6" id="PisoDDL">
                                 <label>Piso</label>
-                                @Html.DropDownListFor(model => Model.Piso.IdPiso, new SelectList(Model.Piso.Pisos, "IdPiso", "Nombre", "Seleccione el piso"), new { @class = "form-control" })
+                                @Html.DropDownListFor(model => Model.Piso.IdPiso, new SelectList(Model.Piso.Pisos, "IdPiso", "Nombre"), "Seleccione el piso", new { @class = "form-control" })
                             </div>
                             <div class="col-6" }>
+                                <label>Estatus cita</label>
                                 @if (Model.IdCita > 0)
                                 {
-                                    <label>Estatus cita</label>
                                     if (Model.EstatusCita.EstatusCitas != null && Model.EstatusCita.EstatusCitas.Count > 0)
                                     {
-                                        @Html.DropDownListFor(model => model.EstatusCita.IdEstatusCita, new SelectList(Model.EstatusCita.EstatusCitas, "EstatusCita.IdEstatusCita", "EstatusCita.Nombre"), "Seleccione el estatus de su cita", new { @class = "form-control" })
+                                        @Html.DropDownListFor(model => model.EstatusCita.IdEstatusCita, new SelectList(Model.EstatusCita.EstatusCitas, "EstatusCita.IdEstatusCita", "EstatusCita.Nombre"), "Seleccione el estatus de su cita", new { @class = "form-control"})
                                     }
                                 }
                                 else
                                 {
-                                        @Html.DropDownListFor(model => model.EstatusCita.IdEstatusCita, new SelectList(Model.EstatusCita.EstatusCitas, "EstatusCita.IdEstatusCita", "EstatusCita.Nombre"), new { @class = "form-control", @disabled = "disabled" })
+                                        @Html.DropDownListFor(model => model.EstatusCita.IdEstatusCita, new SelectList(Model.EstatusCita.EstatusCitas, "EstatusCita.IdEstatusCita", "EstatusCita.Nombre"), new { @class = "form-control", @disabled = "true" })
                                 }
                             </div>
                         </div>
@@ -140,24 +140,31 @@
 <script>
 
     $(document).ready(function () {
-        $("#UrlText").hide();
-        $("#PisoDDL").show();        
+        var url = $("#UrlText");
+        var piso = $("#PisoDDL");
+
+        url.hide();
+        piso.show();
+
+        $("#ButtonRemoto").click(function () {
+            url.show();
+            piso.hide();
+            $("#PisoDDL").val('');  
+            $("#UrlText input").val(''); 
+        });
+
+        $("#ButtonPresencial").click(function () {
+            piso.show();
+            url.hide();
+            $("#UrlText input").val('');  
+            $("#PisoDDL").val(''); 
+        });
+
+        $("#datepicker").datepicker({
+            dateFormat: "dd-mm-yy",
+            showAnim: "clip"
+        });
     });
 
-    $("#ButtonRemoto").click(function () {
-        $("#UrlText").show();
-        $("#PisoDDL").hide();
-        $("#PisoDDL").empty();
-    });
-    $("#ButtonPresencial").click(function () {
-        $("#PisoDDL").show();
-        $("#UrlText").hide();
-        $("#UrlText").empty();
-    });
-
-    $("#datepicker").datepicker({
-        dateFormat: "dd-mm-yy",
-        showAnim: "clip"
-    });
 </script>
 
