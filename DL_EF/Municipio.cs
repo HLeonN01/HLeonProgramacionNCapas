@@ -17,7 +17,7 @@ namespace DL_EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Municipio()
         {
-            this.Colonias = new HashSet<Colonia>();
+            this.Colonia = new HashSet<Colonia>();
         }
     
         public int IdMunicipio { get; set; }
@@ -25,7 +25,7 @@ namespace DL_EF
         public Nullable<int> IdEstado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Colonia> Colonias { get; set; }
+        public virtual ICollection<Colonia> Colonia { get; set; }
         public virtual Estado Estado { get; set; }
     }
 }

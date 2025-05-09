@@ -16,7 +16,7 @@ namespace DL_EF
     {
         public int IdCita { get; set; }
         public System.DateTime FechaHora { get; set; }
-        public byte IdPiso { get; set; }
+        public Nullable<byte> IdPiso { get; set; }
         public int IdCandidato { get; set; }
         public byte IdEstatusCita { get; set; }
         public string Url { get; set; }

@@ -17,7 +17,7 @@ namespace DL_EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Vacante()
         {
-            this.Candidatoes = new HashSet<Candidato>();
+            this.Candidato = new HashSet<Candidato>();
         }
     
         public int IdVacante { get; set; }
@@ -28,7 +28,7 @@ namespace DL_EF
         public byte IdEstatusVacante { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Candidato> Candidatoes { get; set; }
+        public virtual ICollection<Candidato> Candidato { get; set; }
         public virtual EstatusVacante EstatusVacante { get; set; }
     }
 }

@@ -3,88 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entrevista Agendada</title>
     <style>
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            color: #333;
+            background-color: #f0f4f8;
         }
 
-        .container {
+        .email-container {
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
-            padding: 20px;
             background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
         }
 
         .header {
+            background-color: #fa5a32;
+            color: white;
             text-align: center;
-            margin-bottom: 20px;
+            padding: 40px 20px;
+            border-bottom: 1px solid #ddd;
         }
 
-            .header img {
-                max-width: 150px;
-                margin-bottom: 20px;
+            .header h1 {
+                font-size: 28px;
+                margin: 0;
+                font-weight: 600;
+                letter-spacing: 1px;
             }
 
         .content {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #555;
-            margin-bottom: 20px;
+            padding: 30px 20px;
+            text-align: center;
         }
 
             .content p {
-                margin: 10px 0;
+                color: #333;
+                font-size: 18px;
+                line-height: 1.5;
+                margin-bottom: 20px;
+            }
+
+            .content img {
+                width: 100%;
+                max-width: 550px;
+                height: auto;
+                border-radius: 10px;
+                margin-bottom: 20px;
+                box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
             }
 
         .btn {
-            display: inline-block;
-            padding: 12px 20px;
-            background-color: #007bff;
+            background-color: #fa5a32;
             color: white;
+            padding: 15px 25px;
+            font-size: 18px;
             text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            text-align: center;
+            border-radius: 30px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
             margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
             .btn:hover {
-                background-color: #0056b3;
+                background-color: #f19a68;
             }
 
         .footer {
+            background-color: #f8f9fa;
+            padding: 20px;
             text-align: center;
-            font-size: 12px;
-            color: #888;
-            margin-top: 20px;
+            font-size: 14px;
+            color: #777;
         }
+
+            .footer a {
+                color: #fa5a32;
+                text-decoration: none;
+                font-weight: 500;
+            }
+
+                .footer a:hover {
+                    text-decoration: underline;
+                }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="email-container">
         <div class="header">
-            <img src="https://via.placeholder.com/150" alt="Logo">
-            <h2>¡Entrevista Agendada!</h2>
+            <h1>¡Hola {{NombreUsuario}} es un gusto volver a saludarte!</h1>
         </div>
         <div class="content">
-            <p>Estimado/a [Nombre del Candidato],</p>
-            <p>Nos complace informarte que hemos agendado tu entrevista para el puesto de [Nombre del Puesto] en [Nombre de la Empresa]. A continuación encontrarás los detalles de la misma:</p>
-            <p><strong>Fecha:</strong> [Fecha]</p>
-            <p><strong>Hora:</strong> [Hora]</p>
-            <p><strong>Ubicación:</strong> [Ubicación/Enlace de Videoconferencia]</p>
-            <p>Te agradecemos mucho tu interés en formar parte de nuestro equipo. Si tienes alguna pregunta o necesitas más información, no dudes en contactarnos.</p>
-            <a href="mailto:contacto@empresa.com" class="btn">Contactar</a>
+            <p style="font-size: 23px;">Tu próxima entevista esta cerca</p>
+            <img src="https://media.istockphoto.com/id/1384110533/es/foto/director-masculino-asi%C3%A1tico-est%C3%A1-entrevistando-para-reclutar-nuevos-empleados.jpg?s=612x612&w=0&k=20&c=KP4g3O_379o8Rt8Ipxi5ddJjqGTWGukMebvEboq8EC0=" alt="Imagen bienvenida" />
+            <p style="align-items: start;">Tipo de Entrevista: {{TipoEntrevista}}</p>
+            <p>Fecha: {{Fecha}}</p>
+            <p>Piso: {{Piso}}</p>
+            <a href="https://www.linkedin.com/in/hugo-leon-negrete-24842535b/" class="btn">Confirmar Asistencia</a>
         </div>
         <div class="footer">
-            <p>&copy; 2025 [Nombre de la Empresa]. Todos los derechos reservados.</p>
+            <p>Más Acerca de Nosotros <a href="https://digis01.com/">Digis01 Soluciones Digitales</a></p>
         </div>
     </div>
 </body>

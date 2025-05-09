@@ -22,6 +22,6 @@ namespace DL_EF
         public Nullable<int> IdUsuario { get; set; }
     
         public virtual Colonia Colonia { get; set; }
-        public virtual usuario usuario { get; set; }
+        public virtual usuarios usuarios { get; set; }
     }
 }

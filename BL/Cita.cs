@@ -15,12 +15,12 @@ namespace BL
             {
                 using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
                 {
-                    var query = (from candidatosbd in context.Candidatoes
-                                 join cita in context.Citas on candidatosbd.IdCandidato equals cita.IdCandidato into JoinCitaCandidato
+                    var query = (from candidatosbd in context.Candidato
+                                 join cita in context.Cita on candidatosbd.IdCandidato equals cita.IdCandidato into JoinCitaCandidato
                                  from citaCandidatos in JoinCitaCandidato.DefaultIfEmpty()
-                                 join vacante in context.Vacantes on candidatosbd.Vacante.IdVacante equals vacante.IdVacante into JoinVacanteCandidato
+                                 join vacante in context.Vacante on candidatosbd.Vacante.IdVacante equals vacante.IdVacante into JoinVacanteCandidato
                                  from vacanteCandidato in JoinVacanteCandidato.DefaultIfEmpty()
-                                 join piso in context.Pisoes on citaCandidatos.IdPiso equals piso.IdPiso into JoinPisoCita
+                                 join piso in context.Piso on citaCandidatos.IdPiso equals piso.IdPiso into JoinPisoCita
                                  from pisoCita in JoinPisoCita.DefaultIfEmpty()
                                  where vacanteCandidato.IdVacante == IdVacante
                                  select new
@@ -92,14 +92,14 @@ namespace BL
             {
                 using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
                 {
-                    var query = (from candidatosbd in context.Candidatoes
-                                 join cita in context.Citas on candidatosbd.IdCandidato equals cita.IdCandidato into JoinCitaCandidato
+                    var query = (from candidatosbd in context.Candidato
+                                 join cita in context.Cita on candidatosbd.IdCandidato equals cita.IdCandidato into JoinCitaCandidato
                                  from citaCandidatos in JoinCitaCandidato.DefaultIfEmpty()
-                                 join vacante in context.Vacantes on candidatosbd.Vacante.IdVacante equals vacante.IdVacante into JoinVacanteCandidato
+                                 join vacante in context.Vacante on candidatosbd.Vacante.IdVacante equals vacante.IdVacante into JoinVacanteCandidato
                                  from vacanteCandidato in JoinVacanteCandidato.DefaultIfEmpty()
-                                 join piso in context.Pisoes on citaCandidatos.IdPiso equals piso.IdPiso into JoinPisoCita
+                                 join piso in context.Piso on citaCandidatos.IdPiso equals piso.IdPiso into JoinPisoCita
                                  from pisoCita in JoinPisoCita.DefaultIfEmpty()
-                                 join estatus in context.EstatusCitas on citaCandidatos.IdEstatusCita equals estatus.IdEstatusCita into JoinEstatusCita
+                                 join estatus in context.EstatusCita on citaCandidatos.IdEstatusCita equals estatus.IdEstatusCita into JoinEstatusCita
                                  from estatusCitas in JoinEstatusCita.DefaultIfEmpty()
                                  where candidatosbd.IdCandidato == IdCandidato
                                  select new
@@ -213,7 +213,7 @@ namespace BL
             {
                 using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
                 {
-                    var query = (from estatusCitas in context.EstatusCitas
+                    var query = (from estatusCitas in context.EstatusCita
                                  select estatusCitas).ToList();
                     if (query != null)
                     {
@@ -266,7 +266,7 @@ namespace BL
                     }
                     citas.IdCandidato = cita.Candidato.IdCandidato;
                     citas.IdEstatusCita = Convert.ToByte(cita.EstatusCita.IdEstatusCita);
-                    context.Citas.Add(citas);
+                    context.Cita.Add(citas);
 
                     int rowAffect = context.SaveChanges();
                     if (rowAffect >0)
@@ -296,7 +296,7 @@ namespace BL
             {
                 using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
                 {
-                    var update = (from updates in context.Citas
+                    var update = (from updates in context.Cita
                                   where updates.IdCita == cita.IdCita
                                   select updates).SingleOrDefault();
                     if (update != null)
@@ -336,12 +336,12 @@ namespace BL
             {
                 using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
                 {
-                    var delete = (from deletes in context.Citas
+                    var delete = (from deletes in context.Cita
                                   where deletes.IdCita == IdCita
                                   select deletes).SingleOrDefault();
                     if (delete != null)
                     {
-                        context.Citas.Remove(delete);
+                        context.Cita.Remove(delete);
                         int rowAffect = context.SaveChanges();
                         if (rowAffect > 0)
                         {

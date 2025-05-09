@@ -91,6 +91,37 @@
                         <div class="col-4">
                             <div class="form-group">
                                 @Html.LabelFor(model => model.Sexo, new { @class = "control-label" })
+                                @if (Model.Sexo != null)
+                                {
+                                    if (Model.Sexo == "M ")
+                                    {
+                                        <div class="radio">
+                                            <label>
+                                                @Html.RadioButtonFor(model => model.Sexo, "M", new { @checked = true }) Masculino
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                @Html.RadioButtonFor(model => model.Sexo, "F") Femenino
+                                            </label>
+                                        </div>
+                                    }
+                                    else if(Model.Sexo == "F ")
+                                    {
+                                        <div class="radio">
+                                            <label>
+                                                @Html.RadioButtonFor(model => model.Sexo, "M") Masculino
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                @Html.RadioButtonFor(model => model.Sexo, "F", new { @checked = true }) Femenino
+                                            </label>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
                                 <div class="radio">
                                     <label>
                                         @Html.RadioButtonFor(model => model.Sexo, "M") Masculino
@@ -101,6 +132,7 @@
                                         @Html.RadioButtonFor(model => model.Sexo, "F") Femenino
                                     </label>
                                 </div>
+                                }
                             </div>
                         </div>
 

@@ -12,12 +12,12 @@ namespace DL_EF
     using System;
     using System.Collections.Generic;
     
-    public partial class usuario
+    public partial class usuarios
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public usuario()
+        public usuarios()
         {
-            this.Direccions = new HashSet<Direccion>();
+            this.Direccion = new HashSet<Direccion>();
         }
     
         public int idUsuario { get; set; }
@@ -37,7 +37,7 @@ namespace DL_EF
         public string UserName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Direccion> Direccions { get; set; }
+        public virtual ICollection<Direccion> Direccion { get; set; }
         public virtual rol rol { get; set; }
     }
 }

@@ -12,18 +12,14 @@ namespace DL_EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Piso
+    public partial class Promedio
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Piso()
-        {
-            this.Cita = new HashSet<Cita>();
-        }
+        public int IdPromedio { get; set; }
+        public Nullable<int> IdCandidato { get; set; }
+        public string PromedioUniversidad { get; set; }
+        public string PromedioPreparatoria { get; set; }
+        public string PromedioSecundaria { get; set; }
     
-        public byte IdPiso { get; set; }
-        public string Nombre { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cita> Cita { get; set; }
+        public virtual Candidato Candidato { get; set; }
     }
 }

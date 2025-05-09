@@ -518,12 +518,12 @@
     <Content Include="Views\Candidato\Form.cshtml" />
     <Content Include="Views\Cita\GetAll.cshtml" />
     <Content Include="Views\Cita\Form.cshtml" />
+    <Content Include="Views\Correo\_Correo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="CargaMasiva\" />
     <Folder Include="CV\" />
-    <Folder Include="Views\Correo\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

@@ -17,13 +17,13 @@ namespace DL_EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Carrera()
         {
-            this.Candidatoes = new HashSet<Candidato>();
+            this.Candidato = new HashSet<Candidato>();
         }
     
         public int IdCarrera { get; set; }
         public string Nombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Candidato> Candidatoes { get; set; }
+        public virtual ICollection<Candidato> Candidato { get; set; }
     }
 }

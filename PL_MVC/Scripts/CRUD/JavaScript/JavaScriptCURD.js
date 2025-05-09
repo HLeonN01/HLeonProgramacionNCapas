@@ -310,7 +310,6 @@ function GetById(idUsuario) {
                     ? `data:image/png;base64, ${result.Object.ImagenBase64}`
                     : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdnWgZDAdXZemvgse9Ky3sguQEMSeVUkxkcsk_ZFvu9uLsbaEAjdfBLamh7giYmG6vWZs&usqp=CAU";
                 $('#ImagenBase64').attr('src', imagenUsuario);
-                //$('#idUsuarioImagen').attr('src', imagenUsuario);
                 
                 GetAllRoles(function () {
                     $("#selectRoles").val(result.Object.Rol.IdRol);

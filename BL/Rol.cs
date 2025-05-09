@@ -179,7 +179,7 @@ namespace BL
                     DL_EF.rol roles = new DL_EF.rol() ;
                     roles.IdRol = rol.IdRol;
                     roles.Nombre = rol.Nombre;
-                    context.rols.Add(roles);
+                    context.rol.Add(roles);
                     int filasAfectadas = context.SaveChanges();
 
                     if (filasAfectadas > 0)
@@ -218,7 +218,7 @@ namespace BL
                      * select(alias).SingleOrDefault()/ToList();
                      */
 
-                    var query = (from roles in context.rols
+                    var query = (from roles in context.rol
                                  where roles.IdRol == rol.IdRol
                                  select roles).SingleOrDefault();
 
@@ -259,7 +259,7 @@ namespace BL
             {
                 using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
                 {
-                    var query = (from roles in context.rols
+                    var query = (from roles in context.rol
                                  where roles.IdRol == IdRol
                                  select roles).SingleOrDefault();
                 }
@@ -288,7 +288,7 @@ namespace BL
                      * where alias.Campo == parametro que recibimos(id o modelo)
                      * select(alias).SingleOrDefault()/ToList();
                      */
-                    var query = (from roles in context.rols
+                    var query = (from roles in context.rol
                                  select new
                                  {
                                      Id = roles.IdRol,
@@ -331,7 +331,7 @@ namespace BL
             {
                 using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
                 {
-                    var query = (from rol in context.rols
+                    var query = (from rol in context.rol
                                  where rol.IdRol == IdRol
                                  select new
                                  {

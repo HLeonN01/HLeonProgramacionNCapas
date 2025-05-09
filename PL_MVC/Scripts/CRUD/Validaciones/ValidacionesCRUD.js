@@ -1,5 +1,4 @@
-﻿
-function ValidarImagen() {
+﻿function ValidarImagen() {
     var input = $('#inptImage')[0].files[0].name.split('.').pop().toLowerCase()
     //console.log(input)
     var extensionesValidas = ['png', 'jpg', 'jpeg', 'webp']

@@ -15,7 +15,7 @@ namespace BL
             {
                 using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
                 {
-                    var query = (from bolsas in context.BolsaTrabajoes
+                    var query = (from bolsas in context.BolsaTrabajo
                                  select bolsas).ToList();
                     if (query != null)
                     {

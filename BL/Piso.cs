@@ -15,7 +15,7 @@ namespace BL
             {
                 using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
                 {
-                    var query = (from pisos in context.Pisoes
+                    var query = (from pisos in context.Piso
                                  select pisos).ToList();
                     if (query != null)
                     {

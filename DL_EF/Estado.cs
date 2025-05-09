@@ -17,13 +17,13 @@ namespace DL_EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Estado()
         {
-            this.Municipios = new HashSet<Municipio>();
+            this.Municipio = new HashSet<Municipio>();
         }
     
         public int IdEstado { get; set; }
         public string Nombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Municipio> Municipios { get; set; }
+        public virtual ICollection<Municipio> Municipio { get; set; }
     }
 }

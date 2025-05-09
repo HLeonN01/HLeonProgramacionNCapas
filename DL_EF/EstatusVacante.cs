@@ -17,13 +17,13 @@ namespace DL_EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public EstatusVacante()
         {
-            this.Vacantes = new HashSet<Vacante>();
+            this.Vacante = new HashSet<Vacante>();
         }
     
         public byte IdEstatusVacante { get; set; }
         public string Nombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vacante> Vacantes { get; set; }
+        public virtual ICollection<Vacante> Vacante { get; set; }
     }
 }

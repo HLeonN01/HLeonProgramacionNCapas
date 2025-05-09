@@ -827,7 +827,7 @@ namespace BL
                 using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
                 {
                     //INSTANCIAR EL USUARIO DEL DL_EF
-                    DL_EF.usuario usuarioDB = new DL_EF.usuario();        
+                    DL_EF.usuarios usuarioDB = new DL_EF.usuarios();        
                     usuarioDB.UserName = usuario.UserName; //los parametros de ML.usuario se pasan a el objeto de DL_EF.usuario
                     usuarioDB.Nombre = usuario.Nombre;
                     usuarioDB.ApellidoPaterno = usuario.ApellidoPaterno;

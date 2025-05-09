@@ -704,6 +704,73 @@ namespace PL_MVC.Controllers
             return View(roles);
         }
 
+        [HttpPost]
+        public ActionResult GetAll(ML.Usuario usuarioPost)
+        {
+            ML.Result result = new ML.Result();
+            result.Objects = new List<object>();
+            ReportViewer reportViewer = new ReportViewer();
+            reportViewer.ProcessingMode = ProcessingMode.Local;
+            reportViewer.SizeToReportContent = true;
+            reportViewer.Width = Unit.Percentage(900);
+            reportViewer.Height = Unit.Percentage(900);
+            reportViewer.LocalReport.ReportPath = Request.MapPath(Request.ApplicationPath) + @"Reports\UsuariosReport.rdlc";
+            reportViewer.LocalReport.DataSources.Add(new ReportDataSource("UsuariosDataSet", result.Objects));
+            ViewBag.ReportViewer = reportViewer;
+
+            try
+            {
+                using (var cliente = new HttpClient())
+                {
+                    string endPoint = ConfigurationManager.AppSettings["UsuarioREST"].ToString();
+                    cliente.BaseAddress = new Uri(endPoint);
+
+                    var responseTask = cliente.PostAsJsonAsync<ML.Usuario>("GetAll", usuarioPost);
+                    responseTask.Wait();
+
+                    var resultServicio = responseTask.Result;
+                    if (resultServicio.IsSuccessStatusCode)
+                    {
+                        var readTask = resultServicio.Content.ReadAsAsync<List<object>>();
+                        readTask.Wait();
+
+                        foreach (var resultItem in readTask.Result)
+                        {
+                            ML.Usuario resultUsuario = Newtonsoft.Json.JsonConvert.DeserializeObject<ML.Usuario>(resultItem.ToString());
+                            result.Objects.Add(resultUsuario);
+                        }
+
+                        ML.Usuario usuario = new ML.Usuario();
+                        usuario.Rol = new ML.Rol();
+                        usuario.Direccion = new ML.Direccion();
+                        usuario.Direccion.Colonia = new ML.Colonia();
+                        usuario.Direccion.Colonia.Municipio = new ML.Municipio();
+                        usuario.Direccion.Colonia.Municipio.Estado = new ML.Estado();
+                        usuario.Usuarios = result.Objects;
+                        ML.Result rolDDL = BL.Rol.GetAllEF();
+                        usuario.Rol.Roles = rolDDL.Objects;
+                        ML.Result estadoDDL = BL.Estado.GetAllEF();
+                        usuario.Direccion.Colonia.Municipio.Estado.Estados = estadoDDL.Objects;
+                        usuario.Usuarios = result.Objects;
+                        return View(usuario);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+                result.Ex = ex;
+            }
+            ML.Usuario roles = new ML.Usuario();
+            roles.Rol = new ML.Rol();
+            ML.Result rolddl = BL.Rol.GetAllEF();
+            roles.Rol.Roles = rolddl.Objects;
+            roles.Usuarios = new List<object>();
+            return View(roles);
+        }
+
         //public ActionResult Resportes()
         //{
         //    PL_MVC.Reports.UsuariosDataSet usuarios = new PL_MVC.Reports.UsuariosDataSet();

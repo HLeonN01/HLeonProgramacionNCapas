@@ -15,7 +15,7 @@ namespace BL
             {
                 using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
                 {
-                    var query = (from carrerasList in context.Carreras
+                    var query = (from carrerasList in context.Carrera
                                  select carrerasList).ToList();
                     if (query != null)
                     {

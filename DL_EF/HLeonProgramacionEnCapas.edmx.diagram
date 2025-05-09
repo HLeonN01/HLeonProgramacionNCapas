@@ -4,35 +4,38 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="28d287f0ecea44658813323ce04bbad4" Name="Diagram1" ZoomLevel="34">
-        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.rol" Width="1.5" PointX="1.375" PointY="6.125" />
-        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Colonia" Width="1.5" PointX="7.875" PointY="1.125" />
-        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Direccion" Width="1.5" PointX="10.125" PointY="1.625" />
-        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Estado" Width="1.5" PointX="3.375" PointY="1.375" />
-        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Municipio" Width="1.5" PointX="5.625" PointY="1.25" />
-        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Colonia__IdMunic__46E78A0C" />
-        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Direccion__IdCol__49C3F6B7" />
-        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Municipio__IdEst__440B1D61" />
-        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.usuario" Width="1.5" PointX="1" PointY="1.25" />
-        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Direccion__IdUsu__4AB81AF0" />
-        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK_UsuarioIdRol" />
-        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.BolsaTrabajo" Width="1.5" PointX="17.625" PointY="8.375" />
-        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Candidato" Width="1.5" PointX="12.375" PointY="8" />
-        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Carrera" Width="1.5" PointX="6.75" PointY="6" />
-        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.EstatusVacante" Width="1.5" PointX="3.625" PointY="9.375" />
-        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Universidad" Width="1.5" PointX="17.25" PointY="11.5" />
-        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Vacante" Width="1.5" PointX="6.75" PointY="8.875" />
-        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Candidato__IdBol__02084FDA" />
-        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Candidato__IdCar__01142BA1" />
-        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Candidato__IdUni__00200768" />
-        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Candidato__IdVac__02FC7413" />
-        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Vacante__IdEstat__7B5B524B" />
-        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Cita" Width="1.5" PointX="14.625" PointY="9" />
-        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.EstatusCita" Width="1.5" PointX="12.375" PointY="13.75" />
-        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Piso" Width="1.5" PointX="12.375" PointY="5.375" />
-        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Cita__IdCandidat__09A971A2" />
-        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Cita__IdEstatusC__0A9D95DB" />
-        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Cita__IdPiso__08B54D69" />
+      <Diagram DiagramId="48bdb7f90f4f4012bbf083c06a317a56" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.BolsaTrabajo" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Candidato" Width="1.5" PointX="5.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Carrera" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Cita" Width="1.5" PointX="7.5" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Colonia" Width="1.5" PointX="12" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Direccion" Width="1.5" PointX="14.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Empresa" Width="1.5" PointX="9.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Estado" Width="1.5" PointX="7.5" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.EstatusCita" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.EstatusVacante" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Municipio" Width="1.5" PointX="9.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Piso" Width="1.5" PointX="5.25" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Promedio" Width="1.5" PointX="7.5" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.rol" Width="1.5" PointX="9.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Universidad" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.usuarios" Width="1.5" PointX="12" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="HLeonProgramacionEnCapasModel.Vacante" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Candidato__IdBol__02084FDA" ManuallyRouted="false" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Candidato__IdCar__01142BA1" ManuallyRouted="false" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Candidato__IdUni__00200768" ManuallyRouted="false" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Candidato__IdVac__02FC7413" ManuallyRouted="false" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Cita__IdCandidat__09A971A2" ManuallyRouted="false" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Promedio__IdCand__05D8E0BE" ManuallyRouted="false" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Cita__IdEstatusC__0A9D95DB" ManuallyRouted="false" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Cita__IdPiso__08B54D69" ManuallyRouted="false" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Colonia__IdMunic__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Direccion__IdCol__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Direccion__IdUsu__4AB81AF0" ManuallyRouted="false" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Municipio__IdEst__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK__Vacante__IdEstat__7B5B524B" ManuallyRouted="false" />
+        <AssociationConnector Association="HLeonProgramacionEnCapasModel.FK_UsuarioIdRol" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

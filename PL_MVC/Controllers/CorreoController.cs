@@ -21,17 +21,20 @@ namespace PL_MVC.Controllers
         }
         public ActionResult Enviar()
         {
+            ML.Result result = new ML.Result();
             try
             {
                 string correo = ConfigurationManager.AppSettings["Correo"].ToString();
                 string password = ConfigurationManager.AppSettings["Password"].ToString();
+                int puerto = Convert.ToInt32(ConfigurationManager.AppSettings["PuertoSMTP"].ToString());
+                bool defaultCredentials = Convert.ToBoolean(ConfigurationManager.AppSettings["DefaultCredentialsSMTP"].ToString());
+                bool isHtmlBody = Convert.ToBoolean(ConfigurationManager.AppSettings["IsHtmlBodySMTP"].ToString());
 
                 string body = "";
 
                 string path = Server.MapPath("~/Content/Correo/Plantilla.html");
-
+                string pathImagen = Server.MapPath("~/Content/LOGO.png");
                 StreamReader leer = new StreamReader(path);
-
                 body = leer.ReadToEnd();
 
                 body = body.Replace("{{NombreUsuario}}", "Hugo");
@@ -39,7 +42,7 @@ namespace PL_MVC.Controllers
                 body = body.Replace("{{Fecha}}", "08/05/2025");
                 body = body.Replace("{{Piso}}", "9");
 
-                var smptpClient = new SmtpClient("smpt.gmail.com")
+                var smptClient = new SmtpClient("smtp.gmail.com")
                 {
                     Port = 587,
                     UseDefaultCredentials = false,
@@ -49,20 +52,36 @@ namespace PL_MVC.Controllers
 
                 var mensaje = new MailMessage
                 {
-                    From = new MailAddress(correo, "Hugo"),
+                    From = new MailAddress(correo, "Hola Hugo"),
                     Subject = "Entrevista agendada",
                     Body = body,
                     IsBodyHtml = true
                 };
 
-                
-                mensaje.To.Add("hugoln01@outlook.com");
-                smptpClient.Send(mensaje);
+                AlternateView htmlView = AlternateView.CreateAlternateViewFromString(body, null, "text/html");
+                LinkedResource imagen = new LinkedResource(pathImagen)
+                {
+                    ContentId = "imagen",
+                    ContentType = new System.Net.Mime.ContentType("image/png")
+                };
+
+
+                htmlView.LinkedResources.Add(imagen);
+                mensaje.AlternateViews.Add(htmlView);
+                mensaje.To.Add("hugoleonnegrete@gmail.com");
+                smptClient.Send(mensaje);
+                ViewBag.MessageCorrect = "El correo se envio de manera correcta";
             }
             catch(Exception ex)
             {
+                result.Correct = false; 
+                result.ErrorMessage = ex.Message;
+                result.Ex = ex;
+                ViewBag.MessageFalse = "El correo se envio de manera";
             }
-            return View();
+
+            ViewBag.result = result;
+            return PartialView("_Correo");
         }
     }
 }

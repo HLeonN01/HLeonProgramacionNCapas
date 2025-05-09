@@ -15,7 +15,7 @@ namespace BL
             {
                 using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities()) 
                 {
-                    var query = (from universidades in context.Universidads
+                    var query = (from universidades in context.Universidad
                                  select universidades).ToList();
                     if (query != null)
                     {

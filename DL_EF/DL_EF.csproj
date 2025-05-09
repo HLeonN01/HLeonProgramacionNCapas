@@ -87,6 +87,9 @@
     <Compile Include="Direccion.cs">
       <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
     </Compile>
+    <Compile Include="Empresa.cs">
+      <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
+    </Compile>
     <Compile Include="Estado.cs">
       <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
     </Compile>
@@ -126,6 +129,9 @@
     <Compile Include="Piso.cs">
       <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
     </Compile>
+    <Compile Include="Promedio.cs">
+      <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rol.cs">
       <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
@@ -142,7 +148,7 @@
     <Compile Include="UniversidadGetAll_Result.cs">
       <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
     </Compile>
-    <Compile Include="usuario.cs">
+    <Compile Include="UsuarioGetAllDynamic_Result.cs">
       <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
     </Compile>
     <Compile Include="UsuarioGetAllViewSP_Result.cs">
@@ -154,6 +160,9 @@
     <Compile Include="UsuarioGetById_Result.cs">
       <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
     </Compile>
+    <Compile Include="usuarios.cs">
+      <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
+    </Compile>
     <Compile Include="Vacante.cs">
       <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
     </Compile>
@@ -162,32 +171,30 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="HLeonProgramacionEnCapas.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>HLeonProgramacionEnCapas.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="HLeonProgramacionEnCapas.edmx.diagram">
       <DependentUpon>HLeonProgramacionEnCapas.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="HLeonProgramacionEnCapas.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>HLeonProgramacionEnCapas.Context.cs</LastGenOutput>
       <DependentUpon>HLeonProgramacionEnCapas.edmx</DependentUpon>
+      <LastGenOutput>HLeonProgramacionEnCapas.Context.cs</LastGenOutput>
     </Content>
     <Content Include="HLeonProgramacionEnCapas.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>HLeonProgramacionEnCapas.edmx</DependentUpon>
       <LastGenOutput>HLeonProgramacionEnCapas.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

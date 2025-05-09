@@ -12,18 +12,11 @@ namespace DL_EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Piso
+    public partial class Empresa
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Piso()
-        {
-            this.Cita = new HashSet<Cita>();
-        }
-    
-        public byte IdPiso { get; set; }
+        public int IdEmpresa { get; set; }
         public string Nombre { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cita> Cita { get; set; }
+        public string Longitud { get; set; }
+        public string Latitud { get; set; }
     }
 }

@@ -17,13 +17,13 @@ namespace DL_EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public EstatusCita()
         {
-            this.Citas = new HashSet<Cita>();
+            this.Cita = new HashSet<Cita>();
         }
     
         public byte IdEstatusCita { get; set; }
         public string Nombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cita> Citas { get; set; }
+        public virtual ICollection<Cita> Cita { get; set; }
     }
 }
