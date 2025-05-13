@@ -245,6 +245,7 @@
     <Compile Include="Controllers\CandidatoController.cs" />
     <Compile Include="Controllers\CitaController.cs" />
     <Compile Include="Controllers\CorreoController.cs" />
+    <Compile Include="Controllers\EmpresaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JavaScriptController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -519,6 +520,7 @@
     <Content Include="Views\Cita\GetAll.cshtml" />
     <Content Include="Views\Cita\Form.cshtml" />
     <Content Include="Views\Correo\_Correo.cshtml" />
+    <Content Include="Views\Empresa\GetAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

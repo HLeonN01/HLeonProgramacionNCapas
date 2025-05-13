@@ -57,6 +57,7 @@
     <Compile Include="Carrera.cs" />
     <Compile Include="Cita.cs" />
     <Compile Include="Colonia.cs" />
+    <Compile Include="Empresa.cs" />
     <Compile Include="Estado.cs" />
     <Compile Include="Municipio.cs" />
     <Compile Include="Piso.cs" />
