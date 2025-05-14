@@ -4,6 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    #boxEmpresas {
+        display: flex;
+        justify-content: space-between;
+    }
+</style>
 @if (Model.Empresas.Count > 0 || Model.Empresas != null)
 {
 
@@ -14,43 +20,47 @@
     </h5>
     <hr />
     <div class="text-end">
-        <a href="@Url.Action("Form", "Empresa")" class="btn btn-success">
-            Agregar
+        <a href="@Url.Action("Form", "Empresa")" class="btn btn-outline-success">
+            <i class="bi bi-plus-circle"></i>
         </a>
     </div>
-    <div style="justify-content: space-between">
-        <div style="justify-content: space-between">
-            <div>
-                @foreach (ML.Empresa empresa in Model.Empresas)
+    <div id="boxEmpresas">
+        <div>
+            <gmp-map center="19.42847,-99.12766"
+                     zoom="12"
+                     map-id="DEMO_MAP_ID"
+                     style="height: 400px;
+                     width: 600px">
+                @foreach (ML.Empresa marcadores in Model.Empresas)
                 {
-                    <table class="table table-sm">
-                        <thead>
-                            <tr>
-                                <td>Nombre de la empresa</td>
-                                <td>Longitud</td>
-                                <td>Latitud</td>
-                                <td>Acciones</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td id="Nombre">@empresa.Nombre</td>
-                                <td id="Longitud">@empresa.Longitud</td>
-                                <td id="Latitud">@empresa.Latitud</td>
-                                <td class="justify-content-between">
-                                    <a href="@Url.Action("Form", "Empresa", new {IdEmpresa = @empresa.IdEmpresa})" class="text-center btn btn-warning">
-                                        Editar
-                                    </a>
-                                    <a href="@Url.Action("Delete", "Empresa", new {IdEmpresa = @empresa.IdEmpresa})" class="text-center btn btn-danger">
-                                        Eliminar
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <gmp-advanced-marker position="@marcadores.Latitud,@marcadores.Longitud"
+                                         title="@marcadores.Nombre"></gmp-advanced-marker>
                 }
+            </gmp-map>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="row padding">
+                    @foreach (ML.Empresa empresa in Model.Empresas)
+                    {
+                        <div class="col-6">
+                            <div class="card mt-3" style="width: 14rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">@empresa.Nombre</h5>
+                                    <div class="text-center">
+                                        <a href="@Url.Action("Form", "Empresa", new {IdEmpresa = @empresa.IdEmpresa})" class="text-center btn btn-outline-warning">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                        <a href="@Url.Action("Delete", "Empresa", new {IdEmpresa = @empresa.IdEmpresa})" class="text-center btn btn-outline-danger" onclick="">
+                                            <i class="bi bi-x-circle"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
-            <div id="googleMap" style="width:100%;height:400px;"></div>
         </div>
     </div>
 }
@@ -59,21 +69,25 @@ else
     <div class="container">
         <div>
             <div class="row">
-                <div id="googleMap" style="width:100%;height:400px;"></div>
+                <gmp-map center="19.42847,-99.12766"
+                         zoom="12"
+                         map-id="DEMO_MAP_ID"
+                         style="height: 400px">
+                </gmp-map>
             </div>
         </div>
     </div>
 }
 
 <script>
-    function myMap() {
-        var mapProp = {
-            center: new google.maps.LatLng(19.42847, -99.12766),
-            zoom: 10,
+    google.maps.event.addListener(marker, 'click', (function (marker, content, infowindow) {
+        return function () {
+            infowindow.setContent(content);
+            infowindow.open(map, marker);
         };
-        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-    }
+    })(marker, content, infowindow));
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&v=weekly&libraries=marker"
+        defer></script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCt5qUAX_luLPwkcfUOJutLLavQwVFgcA&callback=myMap"></script>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">            

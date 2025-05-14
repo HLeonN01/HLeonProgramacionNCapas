@@ -6,10 +6,29 @@
 
 @using (Html.BeginForm("Form", "Empresa", FormMethod.Post))
 {
+    if (Model.IdEmpresa == 0)
+    {
+        <div class="text-center">
+            <h2 style="color: green">Agregar nueva sucursal</h2>
+        </div>
+        <hr />
+    }
+    else
+    {
+        <div class="text-center">
+            <h2 style="color:darkorange">Editar sucursal</h2>
+        </div>
+        <hr />
+    }
     <div class="container">
         @Html.HiddenFor(model => model.IdEmpresa)
         <div class="card">
-            <div id="googleMap" style="width:100%;height:400px;"></div>
+            @*<gmp-map center="19.42847,-99.12766"
+                     zoom="12"
+                     map-id="DEMO_MAP_ID"
+                     style="height: 200px">
+            </gmp-map>*@
+
             <div class="card-body">
                 <div class="row">
                     <div class="col-4">
@@ -18,11 +37,11 @@
                     </div>
                     <div class="col-4">
                         @Html.LabelFor(model => model.Latitud)
-                        @Html.TextBoxFor(model => model.Latitud, new { @class = "form-control" })
+                        @Html.TextBoxFor(model => model.Latitud, new { @class = "form-control", @disabled = "true" })
                     </div>
                     <div class="col-4">
                         @Html.LabelFor(model => model.Longitud)
-                        @Html.TextBoxFor(model => model.Longitud, new { @class = "form-control" })
+                        @Html.TextBoxFor(model => model.Longitud, new { @class = "form-control", @disabled = "true" })
                     </div>
                 </div>
                 <br />
@@ -37,23 +56,61 @@
 }
 
 <script>
-    function myMap() {
-        var mapProp = {
-            center: new google.maps.LatLng(19.42847, -99.12766),
-            zoom: 10,
-        };
-        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-    
+    var marker;
 
-        const marker = new google.maps.marker.AdvancedMarkerElement({
-            map,
-            position: { lat: 37.4239163, lng: -122.0947209 },
-        });
-
-        marker.addListener('click', ({ domEvent, latLng }) => {
-            const { target } = domEvent;
-        });
+    function placeMarker(location) {
+        if (marker) {
+            marker.setPosition(location);
+        } else {
+            marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+        }
     }
+
+    google.maps.event.addListener(map, 'click', function (event) {
+        placeMarker(event.latLng);
+    });
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCt5qUAX_luLPwkcfUOJutLLavQwVFgcA&callback=myMap"></script>
+<script>
+    (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })({
+        key: "AIzaSyDCt5qUAX_luLPwkcfUOJutLLavQwVFgcA",
+        v: "weekly",
+        // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+        // Add other bootstrap parameters as needed, using camel case.
+    });
+</script>
+
+<script>
+    async function initMap() {
+    // Request needed libraries.
+    const {Map} = await google.maps.importLibrary("maps");
+    const {AdvancedMarkerElement, PinElement} = await google.maps.importLibrary(
+    "marker",
+    );
+    const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 4,
+    center: {lat: -19.432063, lng: -99.133283 },
+    mapId: "DEMO_MAP_ID",
+    });
+
+    map.addListener("click", (e) => {
+        placeMarkerAndPanTo(e.latLng, map);
+    });
+}
+
+    function placeMarkerAndPanTo(latLng, map) {
+        new google.maps.marker.AdvancedMarkerElement({
+            position: latLng,
+            map: map,
+        });
+    map.panTo(latLng);
+    console.log(map);
+}
+
+    initMap();
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&v=weekly&libraries=marker"
+        defer></script>
