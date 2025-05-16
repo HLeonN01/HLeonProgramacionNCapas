@@ -52,9 +52,7 @@
 
 <script>
 
-    const latitud = @Html.Raw(Json.Encode(@Model.Latitud))
-    const longitud = @Html.Raw(Json.Encode(@Model.Longitud))
-    console.log(parseFloat(latitud))
+    const empresa = @Html.Raw(Json.Encode(Model))
     function myMap(latitud, longitud) {
         let mapProp = {
             center: new google.maps.LatLng(19.42847, -99.12766),
@@ -64,7 +62,7 @@
         let marker;
 
         marker = new google.maps.Marker({
-            position: { lat: parseFloat(latitud), lng: parseFloat(longitud) },
+            position: { lat: parseFloat(empresa.Latitud), lng: parseFloat(empresa.Longitud) },
             map: map,
         });
         
