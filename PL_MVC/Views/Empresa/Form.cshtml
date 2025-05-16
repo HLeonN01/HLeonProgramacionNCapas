@@ -3,7 +3,6 @@
     ViewBag.Title = "Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @using (Html.BeginForm("Form", "Empresa", FormMethod.Post))
 {
     if (Model.IdEmpresa == 0)
@@ -20,14 +19,10 @@
         </div>
         <hr />
     }
-    <div class="container">
+    <div class="container" style="display: grid">
         @Html.HiddenFor(model => model.IdEmpresa)
-        <div class="card">
-            @*<gmp-map center="19.42847,-99.12766"
-                     zoom="12"
-                     map-id="DEMO_MAP_ID"
-                     style="height: 200px">
-            </gmp-map>*@
+        <div class="card" style="display:grid">
+            <div id="map" style="width:1050px;height:300px;"></div>
 
             <div class="card-body">
                 <div class="row">
@@ -37,11 +32,11 @@
                     </div>
                     <div class="col-4">
                         @Html.LabelFor(model => model.Latitud)
-                        @Html.TextBoxFor(model => model.Latitud, new { @class = "form-control", @disabled = "true" })
+                        @Html.TextBoxFor(model => model.Latitud, new { @class = "form-control",@id= "latitud", @readonly = "true" })
                     </div>
                     <div class="col-4">
                         @Html.LabelFor(model => model.Longitud)
-                        @Html.TextBoxFor(model => model.Longitud, new { @class = "form-control", @disabled = "true" })
+                        @Html.TextBoxFor(model => model.Longitud, new { @class = "form-control", @id = "longitud", @readonly = "true" })
                     </div>
                 </div>
                 <br />
@@ -56,61 +51,42 @@
 }
 
 <script>
-    var marker;
 
-    function placeMarker(location) {
-        if (marker) {
-            marker.setPosition(location);
-        } else {
-            marker = new google.maps.Marker({
-                position: location,
-                map: map
-            });
-        }
-    }
+    const latitud = @Html.Raw(Json.Encode(@Model.Latitud))
+    const longitud = @Html.Raw(Json.Encode(@Model.Longitud))
+    console.log(parseFloat(latitud))
+    function myMap(latitud, longitud) {
+        let mapProp = {
+            center: new google.maps.LatLng(19.42847, -99.12766),
+            zoom: 12
+        };
+        var map = new google.maps.Map(document.getElementById("map"), mapProp)
+        let marker;
 
-    google.maps.event.addListener(map, 'click', function (event) {
-        placeMarker(event.latLng);
-    });
-</script>
-
-<script>
-    (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })({
-        key: "AIzaSyDCt5qUAX_luLPwkcfUOJutLLavQwVFgcA",
-        v: "weekly",
-        // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
-        // Add other bootstrap parameters as needed, using camel case.
-    });
-</script>
-
-<script>
-    async function initMap() {
-    // Request needed libraries.
-    const {Map} = await google.maps.importLibrary("maps");
-    const {AdvancedMarkerElement, PinElement} = await google.maps.importLibrary(
-    "marker",
-    );
-    const map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 4,
-    center: {lat: -19.432063, lng: -99.133283 },
-    mapId: "DEMO_MAP_ID",
-    });
-
-    map.addListener("click", (e) => {
-        placeMarkerAndPanTo(e.latLng, map);
-    });
-}
-
-    function placeMarkerAndPanTo(latLng, map) {
-        new google.maps.marker.AdvancedMarkerElement({
-            position: latLng,
+        marker = new google.maps.Marker({
+            position: { lat: parseFloat(latitud), lng: parseFloat(longitud) },
             map: map,
         });
-    map.panTo(latLng);
-    console.log(map);
-}
+        
+        google.maps.event.addListener(map, "click", function (event) {
+            const lat = event.latLng.lat();
+            const lng = event.latLng.lng();
 
-    initMap();
+            if (marker) {
+                marker.setMap(null);
+            }
+           
+            marker = new google.maps.Marker({
+                position: { lat: lat, lng: lng },
+                map: map,
+            });               
+            
+            document.getElementById("latitud").value = lat.toFixed(4);
+            document.getElementById("longitud").value = lng.toFixed(4);
+
+        });
+    }
+
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&v=weekly&libraries=marker"
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCt5qUAX_luLPwkcfUOJutLLavQwVFgcA&callback=myMap&v=weekly&libraries=marker"
         defer></script>
