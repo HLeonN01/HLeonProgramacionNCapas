@@ -61,6 +61,7 @@
     <Compile Include="Estado.cs" />
     <Compile Include="Municipio.cs" />
     <Compile Include="Piso.cs" />
+    <Compile Include="ReporteEmpresas.cs" />
     <Compile Include="Rol.cs" />
     <Compile Include="Universidad.cs" />
     <Compile Include="Usuario.cs" />

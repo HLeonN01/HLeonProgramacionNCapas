@@ -19,5 +19,6 @@ namespace ML
         public ML.EstatusCita EstatusCita { get; set; }
         public string Url { get; set; }
         public List<object> Citas { get; set; }
+        public ML.CandidatoVacante CandidatoVacante { get; set; }
     }
 }

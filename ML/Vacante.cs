@@ -16,6 +16,7 @@ namespace ML
         public string FechaLimite { get; set; }
         public string UrlVacante { get; set; }
         public ML.EstatusVacante EstatusVacante { get; set; }
+        public ML.VacanteEmpresa VacanteEmpresa { get; set; }
         public List<object> Vacantes { get; set; }
     }
 }

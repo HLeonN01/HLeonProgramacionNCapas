@@ -14,9 +14,18 @@ namespace DL_EF
     
     public partial class Empresa
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Empresa()
+        {
+            this.VacanteEmpresa = new HashSet<VacanteEmpresa>();
+        }
+    
         public int IdEmpresa { get; set; }
         public string Nombre { get; set; }
         public string Longitud { get; set; }
         public string Latitud { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<VacanteEmpresa> VacanteEmpresa { get; set; }
     }
 }

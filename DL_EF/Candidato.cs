@@ -17,6 +17,7 @@ namespace DL_EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Candidato()
         {
+            this.CandidatoVacante = new HashSet<CandidatoVacante>();
             this.Cita = new HashSet<Cita>();
             this.Promedio = new HashSet<Promedio>();
         }
@@ -34,12 +35,12 @@ namespace DL_EF
         public int IdUniversidad { get; set; }
         public int IdCarrera { get; set; }
         public int IdBolsaTrabajo { get; set; }
-        public int IdVacante { get; set; }
     
         public virtual BolsaTrabajo BolsaTrabajo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CandidatoVacante> CandidatoVacante { get; set; }
         public virtual Carrera Carrera { get; set; }
         public virtual Universidad Universidad { get; set; }
-        public virtual Vacante Vacante { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cita> Cita { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -12,17 +12,13 @@ namespace DL_EF
     using System;
     using System.Collections.Generic;
     
-    public partial class Cita
+    public partial class CandidatoVacante
     {
-        public int IdCita { get; set; }
-        public System.DateTime FechaHora { get; set; }
-        public Nullable<byte> IdPiso { get; set; }
-        public int IdCandidato { get; set; }
-        public byte IdEstatusCita { get; set; }
-        public string Url { get; set; }
+        public int IdCandidatoVacante { get; set; }
+        public Nullable<int> IdCandidato { get; set; }
+        public Nullable<int> IdVacante { get; set; }
     
-        public virtual EstatusCita EstatusCita { get; set; }
-        public virtual Piso Piso { get; set; }
+        public virtual Vacante Vacante { get; set; }
         public virtual Candidato Candidato { get; set; }
     }
 }

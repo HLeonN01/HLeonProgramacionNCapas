@@ -28,7 +28,7 @@
     </div>
     <br />
     <div class="input-group">
-        @Html.DropDownListFor(model => model.Candidato.Vacante.IdVacante, new SelectList(Model.Candidato.Vacante.Vacantes, "IdVacante", "Nombre"), "Seleccione una vacante", new { @class = "form-control text-center" })
+        @Html.DropDownListFor(model => model.CandidatoVacante.Vacante.IdVacante, new SelectList(Model.CandidatoVacante.Vacante.Vacantes, "IdVacante", "Nombre"), "Seleccione una vacante", new { @class = "form-control text-center" })
         <button class="btn btn-outline-info" type="submit"> <i class="bi bi-search"></i></button>
     </div>
 }
@@ -73,7 +73,7 @@
                             <td>@cita.Candidato.Edad</td>
                             <td>@cita.Candidato.Correo</td>
                             <td>@cita.Candidato.Telefono</td>
-                            <td>@cita.Candidato.Vacante.Nombre</td>
+                            <td>@cita.CandidatoVacante.Vacante.Nombre</td>
 
                             @if (@cita.IdCita > 0)
                             {

@@ -1,4 +1,4 @@
-﻿@model ML.Candidato
+﻿@model ML.CandidatoVacante
 @{
     ViewBag.Title = "GetAll";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -45,18 +45,20 @@
     <div>
         <h5>Lista de vacantes</h5>
         <br />
-        <div class="input-group">
-            @Html.DropDownListFor(model => model.Vacante.IdVacante, new SelectList(Model.Vacante.Vacantes, "IdVacante", "Nombre"), "Seleccione la vacante", new { @class = "form-control text-center", })
-            <button class="btn btn-outline-info" type="submit"> <i class="bi bi-search"></i></button>
-        </div>
-        <div class="text-end">
-            <a href="@Url.Action("Form", "Candidato")" class="btn btn-outline-success">
-                <i class="bi bi-plus-lg"></i>
-            </a>
+        <div style="justify-content:space-between">
+            <div class="input-group">
+                @Html.DropDownListFor(model => model.Vacante.IdVacante, new SelectList(Model.Vacante.Vacantes, "IdVacante", "Nombre"), "Seleccione la vacante", new { @class = "form-control text-center", })
+                <button class="btn btn-outline-info" type="submit"> <i class="bi bi-search"></i></button>
+            </div>
+            <div class="text-end">
+                <a href="@Url.Action("Form", "Candidato")" class="btn btn-outline-success">
+                    <i class="bi bi-plus-lg"></i>
+                </a>
+            </div>
         </div>
     </div>
 }
-@if (Model.Candidatos.Count > 0)
+@if (Model.Candidato.Candidatos.Count > 0)
 {
     <div class="container">
         @*<table class="table">
@@ -116,14 +118,14 @@
                 }
             </tbody>
         </table>*@
-        @if (Model.Candidatos.Count > 0)
+        @if (Model.Candidato.Candidatos.Count > 0)
         {
             <br />
             <div class="container-fluid">
              <div class="row">
                  <div class="row padding">
 
-            @foreach (ML.Candidato candidato in Model.Candidatos)
+            @foreach (ML.Candidato candidato in Model.Candidato.Candidatos)
             {
                 <div class="col-4">
                    <div class="card" style="height: auto; display:flex" id="cardCandidato">

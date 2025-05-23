@@ -52,10 +52,18 @@
 
 <script>
 
+
     const empresa = @Html.Raw(Json.Encode(Model))
-    function myMap(latitud, longitud) {
+        function myMap(latitud, longitud) {
+        if (empresa.Latitud && empresa.Longitud) { 
+            var coordenadas = new google.maps.LatLng(parseFloat(empresa.Latitud), parseFloat(empresa.Longitud))
+        }
+        else
+        {
+            var coordenadas = new google.maps.LatLng(19.42847, -99.12766)
+        }
         let mapProp = {
-            center: new google.maps.LatLng(19.42847, -99.12766),
+            center: coordenadas,
             zoom: 12
         };
         var map = new google.maps.Map(document.getElementById("map"), mapProp)
@@ -63,7 +71,7 @@
 
         marker = new google.maps.Marker({
             position: { lat: parseFloat(empresa.Latitud), lng: parseFloat(empresa.Longitud) },
-            map: map,
+            map: map
         });
         
         google.maps.event.addListener(map, "click", function (event) {

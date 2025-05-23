@@ -10,19 +10,14 @@
 namespace DL_EF
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Cita
+    public partial class ReporteGetAll_Result
     {
-        public int IdCita { get; set; }
-        public System.DateTime FechaHora { get; set; }
-        public Nullable<byte> IdPiso { get; set; }
+        public int IdEmpresa { get; set; }
+        public string Nombre_Empresa { get; set; }
+        public int IdVacante { get; set; }
+        public string Nombre_Vacante { get; set; }
         public int IdCandidato { get; set; }
-        public byte IdEstatusCita { get; set; }
-        public string Url { get; set; }
-    
-        public virtual EstatusCita EstatusCita { get; set; }
-        public virtual Piso Piso { get; set; }
-        public virtual Candidato Candidato { get; set; }
+        public string Nombre_Candidato { get; set; }
     }
 }

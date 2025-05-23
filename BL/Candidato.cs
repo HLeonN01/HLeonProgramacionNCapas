@@ -31,7 +31,10 @@ namespace BL
                             candidato.Universidad = new ML.Universidad();
                             candidato.Carrera = new ML.Carrera();
                             candidato.BolsaTrabajo = new ML.BolsaTrabajo();
-                            candidato.Vacante = new ML.Vacante();
+                            //candidato.Vacante = new ML.Vacante();
+                            //ML.CandidatoVacante candidatoVacante = new ML.CandidatoVacante();
+                            //candidatoVacante.Candidato = new ML.Candidato();
+                            //candidatoVacante.Vacante = new ML.Vacante();
                             candidato.IdCandidato = candidatos.IdCandidato;
                             candidato.Nombre = candidatos.NombreCandidato;
                             candidato.ApellidoPaterno = candidatos.ApellidoPaterno;
@@ -62,8 +65,8 @@ namespace BL
                             candidato.Carrera.Nombre = candidatos.Nombre;
                             candidato.BolsaTrabajo.IdBolsaTrabajo = candidatos.IdBolsaTrabajo;
                             candidato.BolsaTrabajo.Nombre = candidatos.NombreBolsa;
-                            candidato.Vacante.IdVacante = candidatos.IdVacante;
-                            candidato.Vacante.Nombre = candidatos.NombreVacante;
+                            //candidatoVacante.Vacante.IdVacante = candidatos.IdVacante;
+                            //candidatoVacante.Vacante.Nombre = candidatos.NombreVacante;
                             result.Objects.Add(candidato);
                         }
                         result.Correct = true;
@@ -88,61 +91,63 @@ namespace BL
                 {
                     var candidatos = context.CandidatoGetById(IdCandidato).SingleOrDefault();
                     if (candidatos != null)
-                    {
-                        ML.Candidato candidato = new ML.Candidato();
-                        candidato.Universidad = new ML.Universidad();
-                        candidato.Carrera = new ML.Carrera();
-                        candidato.BolsaTrabajo = new ML.BolsaTrabajo();
-                        candidato.Vacante = new ML.Vacante();
-                        candidato.IdCandidato = candidatos.IdCandidato;
-                        candidato.Nombre = candidatos.NombreCandidato;
-                        candidato.ApellidoPaterno = candidatos.ApellidoPaterno;
-                        candidato.ApellidoMaterno = candidatos.ApellidoMaterno;
-                        candidato.Edad = candidatos.Edad;
-                        candidato.Correo = candidatos.Correo;
-                        candidato.Telefono = candidatos.Telefono;
-                        candidato.Direccion = candidatos.Direccion;
+                    {                        
+                        //candidato.Vacante = new ML.Vacante();
+                        ML.CandidatoVacante candidatoVacante = new ML.CandidatoVacante();
+                        candidatoVacante.Vacante = new ML.Vacante();
+                        candidatoVacante.Candidato = new ML.Candidato();
+                        candidatoVacante.Candidato.Universidad = new ML.Universidad();
+                        candidatoVacante.Candidato.Carrera = new ML.Carrera();
+                        candidatoVacante.Candidato.BolsaTrabajo = new ML.BolsaTrabajo();
+                        candidatoVacante.Candidato.IdCandidato = candidatos.IdCandidato;
+                        candidatoVacante.Candidato.Nombre = candidatos.NombreCandidato;
+                        candidatoVacante.Candidato.ApellidoPaterno = candidatos.ApellidoPaterno;
+                        candidatoVacante.Candidato.ApellidoMaterno = candidatos.ApellidoMaterno;
+                        candidatoVacante.Candidato.Edad = candidatos.Edad;
+                        candidatoVacante.Candidato.Correo = candidatos.Correo;
+                        candidatoVacante.Candidato.Telefono = candidatos.Telefono;
+                        candidatoVacante.Candidato.Direccion = candidatos.Direccion;
                         if (candidatos.Foto == null)
                         {
-                            candidato.Foto = "";
+                            candidatoVacante.Candidato.Foto = "";
                         }
                         else
                         {
-                            candidato.Foto = Convert.ToBase64String(candidatos.Foto);
+                            candidatoVacante.Candidato.Foto = Convert.ToBase64String(candidatos.Foto);
                         }
                         if (candidatos.Foto == null)
                         {
-                            candidato.FotoArray = new byte[0];
+                            candidatoVacante.Candidato.FotoArray = new byte[0];
                         }
                         else
                         {
-                            candidato.FotoArray = candidatos.Foto;
+                            candidatoVacante.Candidato.FotoArray = candidatos.Foto;
                         }
                         if (candidatos.Curriculum == null)
                         {
-                            candidato.CurriculumArray = new byte[0];
+                            candidatoVacante.Candidato.CurriculumArray = new byte[0];
                         }
                         else
                         {
-                            candidato.CurriculumArray = candidatos.Curriculum ?? new byte[0];
+                            candidatoVacante.Candidato.CurriculumArray = candidatos.Curriculum ?? new byte[0];
                         }
                         if (candidatos.Curriculum == null)
                         {
-                            candidato.Curriculum = "";
+                            candidatoVacante.Candidato.Curriculum = "";
                         }
                         else
                         {
-                            candidato.Curriculum = Convert.ToBase64String(candidatos.Curriculum);
+                            candidatoVacante.Candidato.Curriculum = Convert.ToBase64String(candidatos.Curriculum);
                         }
-                        candidato.Universidad.IdUniversidad = candidatos.IdUniversidad;
-                        candidato.Universidad.Nombre = candidatos.NombreUniversidad;
-                        candidato.Carrera.IdCarrera = candidatos.IdCarrera;
-                        candidato.Carrera.Nombre = candidatos.Nombre;
-                        candidato.BolsaTrabajo.IdBolsaTrabajo = candidatos.IdBolsaTrabajo;
-                        candidato.BolsaTrabajo.Nombre = candidatos.NombreBolsa;
-                        candidato.Vacante.IdVacante = candidatos.IdVacante;
-                        candidato.Vacante.Nombre = candidatos.NombreVacante;
-                        result.Object = candidato;
+                        candidatoVacante.Candidato.Universidad.IdUniversidad = candidatos.IdUniversidad;
+                        candidatoVacante.Candidato.Universidad.Nombre = candidatos.NombreUniversidad;
+                        candidatoVacante.Candidato.Carrera.IdCarrera = candidatos.IdCarrera;
+                        candidatoVacante.Candidato.Carrera.Nombre = candidatos.Nombre;
+                        candidatoVacante.Candidato.BolsaTrabajo.IdBolsaTrabajo = candidatos.IdBolsaTrabajo;
+                        candidatoVacante.Candidato.BolsaTrabajo.Nombre = candidatos.NombreBolsa;
+                        candidatoVacante.Vacante.IdVacante = candidatos.IdVacante;
+                        candidatoVacante.Vacante.Nombre = candidatos.NombreVacante;
+                        result.Object = candidatoVacante;
                         result.Correct = true;
                     }
                 }
@@ -156,14 +161,15 @@ namespace BL
             return result;
         }
 
-        public static ML.Result Add(ML.Candidato candidatoDB)
+        public static ML.Result Add(ML.CandidatoVacante candidatoDB)
         {
             ML.Result result = new ML.Result();
             try
             {
                 using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
                 {
-                    int rowAffects = context.CandidatoAdd(candidatoDB.Nombre, candidatoDB.ApellidoPaterno, candidatoDB.ApellidoMaterno, candidatoDB.Edad, candidatoDB.Correo, candidatoDB.Telefono, candidatoDB.Direccion, candidatoDB.FotoArray, candidatoDB.CurriculumArray,candidatoDB.Universidad.IdUniversidad, candidatoDB.Carrera.IdCarrera, candidatoDB.BolsaTrabajo.IdBolsaTrabajo, candidatoDB.Vacante.IdVacante);
+                    int rowAffects = context.CandidatoAdd(candidatoDB.Candidato.Nombre, candidatoDB.Candidato.ApellidoPaterno, candidatoDB.Candidato.ApellidoMaterno, candidatoDB.Candidato.Edad, candidatoDB.Candidato.Correo, candidatoDB.Candidato.Telefono, candidatoDB.Candidato.Direccion, candidatoDB.Candidato.FotoArray, candidatoDB.Candidato.CurriculumArray,candidatoDB.Candidato.Universidad.IdUniversidad, candidatoDB.Candidato.Carrera.IdCarrera, candidatoDB.Candidato.BolsaTrabajo.IdBolsaTrabajo, candidatoDB.Vacante.IdVacante, candidatoDB.Candidato.IdCandidato);
+                    
                     if (rowAffects > 0)
                     {
                         result.Correct = true;
@@ -183,14 +189,14 @@ namespace BL
             }
             return result;
         }
-        public static ML.Result Update(ML.Candidato candidatoDB)
+        public static ML.Result Update(ML.CandidatoVacante candidatoDB)
         {
             ML.Result result = new ML.Result();
             try
             {
                 using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
                 {
-                    int rowAffects = context.CandidatoUpdate(candidatoDB.IdCandidato,candidatoDB.Nombre, candidatoDB.ApellidoPaterno, candidatoDB.ApellidoMaterno, candidatoDB.Edad, candidatoDB.Correo, candidatoDB.Telefono, candidatoDB.Direccion, candidatoDB.FotoArray, candidatoDB.CurriculumArray, candidatoDB.Universidad.IdUniversidad, candidatoDB.Carrera.IdCarrera, candidatoDB.BolsaTrabajo.IdBolsaTrabajo, candidatoDB.Vacante.IdVacante);
+                    int rowAffects = context.CandidatoUpdate(candidatoDB.Candidato.IdCandidato,candidatoDB.Candidato.Nombre, candidatoDB.Candidato.ApellidoPaterno, candidatoDB.Candidato.ApellidoMaterno, candidatoDB.Candidato.Edad, candidatoDB.Candidato.Correo, candidatoDB.Candidato.Telefono, candidatoDB.Candidato.Direccion, candidatoDB.Candidato.FotoArray, candidatoDB.Candidato.CurriculumArray, candidatoDB.Candidato.Universidad.IdUniversidad, candidatoDB.Candidato.Carrera.IdCarrera, candidatoDB.Candidato.BolsaTrabajo.IdBolsaTrabajo, candidatoDB.Vacante.IdVacante);
                     if (rowAffects > 0)
                     {
                         result.Correct = true;

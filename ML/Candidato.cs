@@ -46,7 +46,7 @@ namespace ML
         public ML.Universidad Universidad { get; set; }
         public ML.Carrera Carrera { get; set; }
         public ML.BolsaTrabajo BolsaTrabajo { get; set; }
-        public ML.Vacante Vacante { get; set; }
+        //public ML.Vacante Vacante { get; set; }
         public List<object> Candidatos { get; set; }
     }
 }

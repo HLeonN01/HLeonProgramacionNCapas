@@ -65,6 +65,9 @@
     <Compile Include="CandidatoGetById_Result.cs">
       <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
     </Compile>
+    <Compile Include="CandidatoVacante.cs">
+      <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
+    </Compile>
     <Compile Include="Carrera.cs">
       <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
     </Compile>
@@ -133,6 +136,9 @@
       <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReporteGetAll_Result.cs">
+      <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
+    </Compile>
     <Compile Include="rol.cs">
       <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
     </Compile>
@@ -164,6 +170,9 @@
       <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
     </Compile>
     <Compile Include="Vacante.cs">
+      <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VacanteEmpresa.cs">
       <DependentUpon>HLeonProgramacionEnCapas.tt</DependentUpon>
     </Compile>
     <Compile Include="VacanteGetAll_Result.cs">

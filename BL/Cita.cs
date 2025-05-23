@@ -15,7 +15,9 @@ namespace BL
             {
                 using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
                 {
-                    var query = (from candidatosbd in context.Candidato
+                    var query = (from candidatosbd in context.CandidatoVacante
+                                 join candidato in context.Candidato on candidatosbd.IdCandidato equals candidato.IdCandidato
+                                 into JoinTablaIntermendia
                                  join cita in context.Cita on candidatosbd.IdCandidato equals cita.IdCandidato into JoinCitaCandidato
                                  from citaCandidatos in JoinCitaCandidato.DefaultIfEmpty()
                                  join vacante in context.Vacante on candidatosbd.Vacante.IdVacante equals vacante.IdVacante into JoinVacanteCandidato
@@ -38,9 +40,11 @@ namespace BL
                         {
                             ML.Cita Citabd = new ML.Cita();
                             Citabd.Candidato = new ML.Candidato();
-                            Citabd.Candidato.Vacante = new ML.Vacante();
                             Citabd.Piso = new ML.Piso();
+                            Citabd.CandidatoVacante = new ML.CandidatoVacante();                           
+                            Citabd.CandidatoVacante.Vacante = new ML.Vacante();                           
                             
+
                             if (citas.Citas != null && citas.Citas.IdCita > 0)
                             {
                                 Citabd.IdCita = citas.Citas.IdCita;
@@ -49,22 +53,22 @@ namespace BL
                             {
                                 Citabd.IdCita = 0;
                             }
-                            if (citas.Candidatos != null && citas.Candidatos.Foto != null)
+                            if (citas.Candidatos != null && citas.Candidatos.Candidato.Foto != null)
                             {
-                                Citabd.Candidato.Foto = Convert.ToBase64String(citas.Candidatos.Foto);
+                                Citabd.Candidato.Foto = Convert.ToBase64String(citas.Candidatos.Candidato.Foto);
                             }
                             else
                             {
                                 Citabd.Candidato.Foto = "";
                             }
-                            Citabd.Candidato.IdCandidato = citas.Candidatos.IdCandidato;
-                            Citabd.Candidato.Nombre = citas.Candidatos.Nombre;
-                            Citabd.Candidato.ApellidoPaterno = citas.Candidatos.ApellidoPaterno;
-                            Citabd.Candidato.ApellidoMaterno = citas.Candidatos.ApellidoMaterno;
-                            Citabd.Candidato.Edad = citas.Candidatos.Edad;
-                            Citabd.Candidato.Correo = citas.Candidatos.Correo;
-                            Citabd.Candidato.Telefono = citas.Candidatos.Telefono;
-                            Citabd.Candidato.Vacante.Nombre = citas.Candidatos.Vacante.Nombre;
+                            Citabd.Candidato.IdCandidato = citas.Candidatos.Candidato.IdCandidato;
+                            Citabd.Candidato.Nombre = citas.Candidatos.Candidato.Nombre;
+                            Citabd.Candidato.ApellidoPaterno = citas.Candidatos.Candidato.ApellidoPaterno;
+                            Citabd.Candidato.ApellidoMaterno = citas.Candidatos.Candidato.ApellidoMaterno;
+                            Citabd.Candidato.Edad = citas.Candidatos.Candidato.Edad;
+                            Citabd.Candidato.Correo = citas.Candidatos.Candidato.Correo;
+                            Citabd.Candidato.Telefono = citas.Candidatos.Candidato.Telefono;
+                            Citabd.CandidatoVacante.Vacante.Nombre = citas.Candidatos.Vacante.Nombre;
                             result.Objects.Add(Citabd);
                         }
                         result.Correct = true;
@@ -92,7 +96,9 @@ namespace BL
             {
                 using (DL_EF.HLeonProgramacionEnCapasEntities context = new DL_EF.HLeonProgramacionEnCapasEntities())
                 {
-                    var query = (from candidatosbd in context.Candidato
+                    var query = (from candidatosbd in context.CandidatoVacante
+                                 join candidato in context.Candidato on candidatosbd.IdCandidato equals candidato.IdCandidato
+                                 into JoinTablaIntermedia
                                  join cita in context.Cita on candidatosbd.IdCandidato equals cita.IdCandidato into JoinCitaCandidato
                                  from citaCandidatos in JoinCitaCandidato.DefaultIfEmpty()
                                  join vacante in context.Vacante on candidatosbd.Vacante.IdVacante equals vacante.IdVacante into JoinVacanteCandidato
@@ -109,14 +115,15 @@ namespace BL
                                      Citas = citaCandidatos,
                                      Pisos = pisoCita,
                                      Estatus = estatusCitas
-                                 }).SingleOrDefault();
+                                 }).FirstOrDefault();
 
                     if (query != null)
                     {
                         ML.Cita cita = new ML.Cita();
                         cita.Candidato = new ML.Candidato();
-                        cita.Candidato.Vacante = new ML.Vacante();
-                        cita.Candidato.Vacante.EstatusVacante = new ML.EstatusVacante();
+                        cita.CandidatoVacante = new ML.CandidatoVacante();
+                        cita.CandidatoVacante.Vacante = new ML.Vacante();
+                        cita.CandidatoVacante.Vacante.EstatusVacante = new ML.EstatusVacante();
                         cita.EstatusCita = new ML.EstatusCita();
                         cita.Piso = new ML.Piso();
 
@@ -144,7 +151,7 @@ namespace BL
                         {
                             cita.Piso.IdPiso = 0;
                         }
-                        cita.Candidato.IdCandidato = query.Candidatos.IdCandidato;
+                        cita.Candidato.IdCandidato = query.Candidatos.Candidato.IdCandidato;
                         if (query.Pisos != null && query.Pisos.Nombre != null)
                         {
                             cita.Piso.Nombre = query.Pisos.Nombre.ToString();
@@ -155,11 +162,11 @@ namespace BL
                         }
                         if (query.Vacantes != null && query.Vacantes.UrlVacante != "")
                         {
-                            cita.Candidato.Vacante.UrlVacante = query.Vacantes.UrlVacante;
+                            cita.CandidatoVacante.Vacante.UrlVacante = query.Vacantes.UrlVacante;
                         }
                         else
                         {
-                            cita.Candidato.Vacante.UrlVacante = "";
+                            cita.CandidatoVacante.Vacante.UrlVacante = "";
                         }
                         if (query.Estatus != null && query.Estatus.IdEstatusCita > 0)
                         {
@@ -177,16 +184,16 @@ namespace BL
                         {
                             cita.EstatusCita.Nombre = "";
                         }
-                        cita.Candidato.Nombre = query.Candidatos.Nombre;
-                        cita.Candidato.ApellidoPaterno = query.Candidatos.ApellidoPaterno;
-                        cita.Candidato.ApellidoMaterno = query.Candidatos.ApellidoMaterno; 
-                        cita.Candidato.Correo = query.Candidatos.Correo;
-                        cita.Candidato.Telefono = query.Candidatos.Telefono;
-                        cita.Candidato.Vacante.IdVacante = query.Vacantes.IdVacante;
-                        cita.Candidato.Vacante.Nombre = query.Vacantes.Nombre;
-                        if (query.Candidatos != null && query.Candidatos.Foto != null)
+                        cita.Candidato.Nombre = query.Candidatos.Candidato.Nombre;
+                        cita.Candidato.ApellidoPaterno = query.Candidatos.Candidato.ApellidoPaterno;
+                        cita.Candidato.ApellidoMaterno = query.Candidatos.Candidato.ApellidoMaterno;
+                        cita.Candidato.Correo = query.Candidatos.Candidato.Correo;
+                        cita.Candidato.Telefono = query.Candidatos.Candidato.Telefono;
+                        cita.CandidatoVacante.Vacante.IdVacante = query.Vacantes.IdVacante;
+                        cita.CandidatoVacante.Vacante.Nombre = query.Vacantes.Nombre;
+                        if (query.Candidatos != null && query.Candidatos.Candidato.Foto != null)
                         {
-                            cita.Candidato.Foto = Convert.ToBase64String(query.Candidatos.Foto);
+                            cita.Candidato.Foto = Convert.ToBase64String(query.Candidatos.Candidato.Foto);
                         }
                         else
                         {
@@ -269,7 +276,7 @@ namespace BL
                     context.Cita.Add(citas);
 
                     int rowAffect = context.SaveChanges();
-                    if (rowAffect >0)
+                    if (rowAffect > 0)
                     {
                         result.Correct = true;
                     }
@@ -346,7 +353,7 @@ namespace BL
                         if (rowAffect > 0)
                         {
                             result.Correct = true;
-                        }                        
+                        }
                     }
                     else
                     {
